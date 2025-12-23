@@ -1,0 +1,96 @@
+from sqlalchemy.orm import Session, joinedload
+
+from domain.entities.appointment import Appointment
+from domain.repositories.appointment_repository import AppointmentRepository
+from infrastructure.database.models.appointment import AppointmentModel
+from infrastructure.database.models.availability import AvailabilityModel
+from infrastructure.database.models.customer import CustomerModel
+
+
+class AppointmentRepositorySQLAlchemy(AppointmentRepository):
+
+    def __init__(self, session: Session):
+        self.session = session
+
+    def get_by_id(self, appointment_id: int) -> Appointment | None:
+        model = (
+            self.session.query(AppointmentModel)
+            .options(joinedload(AppointmentModel.availability))
+            .options(joinedload(AppointmentModel.customer))
+            .filter(AppointmentModel.id == appointment_id)
+            .first()
+        )
+
+        if not model:
+            return None
+
+        return self._to_entity(model)
+
+    def list_by_professional(
+        self,
+        professional_id: int,
+        availability_id: int | None = None,
+        status: str | None = None,
+        customer_name: str | None = None,
+        customer_email: str | None = None,
+        date=None,
+        start_time=None,
+        end_time=None,
+        slot_duration_minutes=None,
+    ) -> list[Appointment]:
+
+        query = (
+            self.session.query(AppointmentModel)
+            .join(AppointmentModel.availability)
+            .join(AppointmentModel.customer)
+            .filter(AppointmentModel.professional_id == professional_id)
+        )
+
+        if availability_id:
+            query = query.filter(AppointmentModel.availability_id == availability_id)
+
+        if status:
+            query = query.filter(AppointmentModel.status == status)
+
+        if customer_name:
+            query = query.filter(CustomerModel.name.ilike(f"%{customer_name}%"))
+
+        if customer_email:
+            query = query.filter(CustomerModel.email.ilike(f"%{customer_email}%"))
+
+        if date:
+            query = query.filter(AvailabilityModel.date == date)
+
+        if start_time:
+            query = query.filter(AvailabilityModel.start_time <= start_time)
+
+        if end_time:
+            query = query.filter(AvailabilityModel.end_time >= end_time)
+
+        if slot_duration_minutes:
+            query = query.filter(
+                AvailabilityModel.slot_duration_minutes == slot_duration_minutes
+            )
+
+        models = query.all()
+        return [self._to_entity(model) for model in models]
+
+    def save(self, appointment: Appointment) -> None:
+        model = AppointmentModel(
+            professional_id=appointment.professional_id,
+            customer_id=appointment.customer_id,
+            availability_id=appointment.availability_id,
+            status=appointment.status,
+        )
+
+        self.session.add(model)
+        self.session.commit()
+
+    def _to_entity(self, model: AppointmentModel) -> Appointment:
+        return Appointment(
+            id=model.id,
+            professional_id=model.professional_id,
+            customer_id=model.customer_id,
+            availability_id=model.availability_id,
+            status=model.status.value if hasattr(model.status, "value") else model.status,
+        )

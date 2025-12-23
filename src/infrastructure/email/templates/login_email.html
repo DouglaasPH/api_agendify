@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Agendify Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2c7be5;
+      }
+      p {
+        line-height: 1.6;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 20px;
+        background-color: #2c7be5;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hello, {{ username }}!</h1>
+      <p>
+        Your login to Agendify was successful. You can now continue managing
+        your appointments and enjoy all the platform features.
+      </p>
+      <a href="http://localhost:5173/dashboard" class="button"
+        >Access Dashboard</a
+      >
+      <p class="footer">
+        If you did not perform this login, we recommend changing your password
+        immediately.
+      </p>
+    </div>
+  </body>
+</html>
