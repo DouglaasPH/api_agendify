@@ -1,28 +1,25 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database import engine, Base
-from controllers import appointment, availabilities, customers, refresh_token
+from presentation.controllers import (
+    appointment_controller,
+    availability_controller,
+    customer_controller,
+    professional_controller,
+    refresh_token_controller,
+)
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    from models.appointments import Appointments                  # noqa
-    from models.availabilities import Availabilities              # noqa
-    from models.users import Users                                # noqa
-    from models.refresh_tokens import RefreshToken                # noqa
-    from models.customers import Customers                        # noqa
-    
-    Base.metadata.create_all(bind=engine)
-    yield
 
 
-app = FastAPI(lifespan=lifespan)
-app.include_router(refresh_token.router)
-app.include_router(appointment.router)
-app.include_router(availabilities.router)
-app.include_router(customers.router)
+
+app = FastAPI(title="Agendify API")
+
+app.include_router(appointment_controller.router)
+app.include_router(availability_controller.router)
+app.include_router(customer_controller.router)
+app.include_router(professional_controller.router)
+app.include_router(refresh_token_controller.router)
 
 app.add_middleware(
     CORSMiddleware,
