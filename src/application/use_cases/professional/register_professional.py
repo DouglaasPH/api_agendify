@@ -1,4 +1,4 @@
-from domain.entities.professional import Professional
+from domain.entities.professional import Professional, ProfessionalStatus
 from domain.repositories.professional_repository import ProfessionalRepository
 from infrastructure.security.token_service import TokenService
 
@@ -24,7 +24,7 @@ class RegisterProfessional:
             profile_avatar_id=payload["profile_avatar_id"],
             phone_number=payload["phone_number"],
             chat_code=payload["chat_code"],
-            is_active=False,
+            status=ProfessionalStatus.ACTIVE,
         )
         
         self.professional_repository.save(professional)

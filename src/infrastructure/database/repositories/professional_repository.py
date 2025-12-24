@@ -61,7 +61,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
             profession=professional.profession,
             phone_number=professional.phone_number,
             chat_code=professional.chat_code,
-            is_active=professional.is_active,
+            status=professional.status,
         )
 
         self.session.add(model)
@@ -83,5 +83,5 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
             profession=model.profession,
             phone_number=model.phone_number,
             chat_code=model.chat_code,
-            is_active=model.is_active,
+            status=model.status,
         )

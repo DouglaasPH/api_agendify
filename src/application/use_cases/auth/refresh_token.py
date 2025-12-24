@@ -5,7 +5,7 @@ from domain.repositories.professional_repository import ProfessionalRepository
 from infrastructure.security.token_service import TokenService
 
 
-class RefreshAccessToken:
+class RefreshToken:
     def __init__(
         self,
         refresh_token_repository: RefreshTokenRepository,
@@ -26,6 +26,8 @@ class RefreshAccessToken:
             raise ValueError("Refresh token revoked")
         
         if refresh_token.expires_at < datetime.now(timezone.utc):
+            refresh_token.revoke()
+            self.refresh_token_repository.save(refresh_token)
             raise ValueError("Refresh token expired")
         
         professional = self.professional_repository.get_by_id(refresh_token.professional_id)
@@ -33,7 +35,12 @@ class RefreshAccessToken:
         if not professional or professional.status != "active":
             raise ValueError("Professional not active")
         
-        return self.token_service.create_access_token(
+        access_token = self.token_service.create_access_token(
             subject=professional.id,
             role="professional"
         )
+        
+        return {
+            **access_token,
+            "refresh_token": refresh_token
+        }

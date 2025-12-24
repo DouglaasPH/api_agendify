@@ -46,9 +46,7 @@ class GenerateRegisterVerificationProfessional:
             expires_delta=timedelta(minutes=5)
         )
         
-        verification_link = (
-            f"{self.frontend_base_url}/validate-email-in-register/{token}"
-        )
+        verification_link = f"{self.frontend_base_url}/validate-email-in-register/{token}"
         
         await self.email_service.send_verification_email(
             verification_link,

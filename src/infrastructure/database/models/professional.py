@@ -1,7 +1,11 @@
+from enum import Enum
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
+from domain.entities.professional import ProfessionalStatus
 from infrastructure.database.base import Base
+
 
 class ProfessionalModel(Base):
     __tablename__ = "professional"
@@ -14,6 +18,6 @@ class ProfessionalModel(Base):
     profession = Column(String, nullable=False)
     phone_number = Column(String, nullable=False)
     chat_code = Column(String, nullable=False)
-    status = Column(String, nullable=False)
+    status = Column(Enum(ProfessionalStatus), default=ProfessionalStatus.ACTIVE, nullable=False)
     
     refresh_tokens = relationship("RefreshTokenModel", back_populates="professional")

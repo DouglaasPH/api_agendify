@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import engine, Base
-from controllers import auth, appointment, availabilities, customers
+from controllers import appointment, availabilities, customers, refresh_token
 
 
 @asynccontextmanager
@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(auth.router)
+app.include_router(refresh_token.router)
 app.include_router(appointment.router)
 app.include_router(availabilities.router)
 app.include_router(customers.router)

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import date, datetime
 
-from domain.entities.appointment import Appointment
+from domain.entities.appointment import Appointment, AppointmentStatus
 
 
 class AppointmentRepository(ABC):
@@ -14,7 +14,7 @@ class AppointmentRepository(ABC):
         self,
         professional_id: int,
         availability_id: int | None = None,
-        status: str | None = None,
+        status: AppointmentStatus | None = None,
         customer_name: str | None = None,
         customer_email: str | None = None,
         date: date | None = None,
@@ -41,7 +41,7 @@ class AppointmentRepository(ABC):
         self,
         professional_id: int,
         availability_id: int | None = None,
-        status: str | None = None,
+        status: AppointmentStatus | None = None,
         customer_name: str | None = None,
         customer_email: str | None = None,
         date: date | None = None,

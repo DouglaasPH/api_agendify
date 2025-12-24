@@ -1,4 +1,4 @@
-from application.dto.professional_dto import ProfessionalOutputDTO
+from application.schemas.professional import ProfessionalOutputSchema
 from domain.repositories.professional_repository import ProfessionalRepository
 
 class GetProfessional:
@@ -11,7 +11,7 @@ class GetProfessional:
         if not professional:
             raise ValueError("Professional not found")
         
-        return ProfessionalOutputDTO(
+        return ProfessionalOutputSchema(
             id=professional.id,
             name=professional.name,
             email=professional.email,
@@ -27,7 +27,7 @@ class GetProfessional:
         if not professional:
             raise ValueError("Professional not found")
         
-        return ProfessionalOutputDTO(
+        return ProfessionalOutputSchema(
             id=professional.id,
             name=professional.name,
             email=professional.email,

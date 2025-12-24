@@ -13,7 +13,7 @@ class AppointmentModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     professional_id = Column(Integer, ForeignKey("professionals.id"))
     availability_id = Column(Integer, ForeignKey("availability.id"), unique=False)
-    status = Column(Enum(AppointmentStatus), default=AppointmentStatus.confirmed, nullable=False)    
+    status = Column(Enum(AppointmentStatus), default=AppointmentStatus.CONFIRMED, nullable=False)    
     customer_id = Column(Integer, ForeignKey("customers.id"), unique=False)
     
     availabilities = relationship("Availability", back_populates="appointment")

@@ -1,6 +1,8 @@
+from datetime import date, datetime
+
 from sqlalchemy.orm import Session, joinedload
 
-from domain.entities.appointment import Appointment
+from domain.entities.appointment import Appointment, AppointmentStatus
 from domain.repositories.appointment_repository import AppointmentRepository
 from infrastructure.database.models.appointment import AppointmentModel
 from infrastructure.database.models.availability import AvailabilityModel
@@ -30,13 +32,13 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
         self,
         professional_id: int,
         availability_id: int | None = None,
-        status: str | None = None,
+        status: AppointmentStatus | None = None,
         customer_name: str | None = None,
         customer_email: str | None = None,
-        date=None,
-        start_time=None,
-        end_time=None,
-        slot_duration_minutes=None,
+        date: date | None = None,
+        start_time: datetime | None = None,
+        end_time: datetime | None =None,
+        slot_duration_minutes: int | None =None,
     ) -> list[Appointment]:
 
         query = (

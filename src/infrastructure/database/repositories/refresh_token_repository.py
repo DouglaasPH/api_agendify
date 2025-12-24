@@ -6,7 +6,7 @@ from domain.entities.refresh_token import RefreshToken
 from infrastructure.database.models.refresh_token import RefreshTokenModel
 
 
-class RefreshTokenRepository(ABC):
+class RefreshTokenRepositorySQLAlchemy(ABC):
     def __init__(self, session: Session):
         self.session = session
 
