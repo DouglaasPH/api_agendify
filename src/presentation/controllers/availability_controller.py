@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import List, Optional
+from typing import Optional
 
 # fastapi
 from application.use_cases.availability.delete_availability import DeleteAvailability
@@ -25,7 +25,7 @@ from domain.entities.customer import Customer
 from domain.entities.availability import Availability
 
 
-router = APIRouter("availability")
+router = APIRouter(prefix="/availability")
 
 @router.post("/professional")
 def create_availability_for_professional(
@@ -58,7 +58,7 @@ def get_availability_for_professional(
     return response
 
 
-@router.get("/professional/list", response_model=List[Availability])
+@router.get("/professional/list")
 def list_availability_for_professional(
     availability_id: Optional[int] = Query(None),
     date: Optional[date] = Query(None),
@@ -96,7 +96,7 @@ def get_delete_for_professional(
     return response
 
 
-@router.get("/customer/list/{professional_id}", response_model=List[Availability])
+@router.get("/customer/list/{professional_id}")
 def list_availability_for_customer(
     professional_id: int,
     current_customer: Customer = Depends(get_current_customer),

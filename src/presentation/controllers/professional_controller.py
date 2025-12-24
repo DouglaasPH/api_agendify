@@ -46,7 +46,7 @@ from presentation.dependencies.professional import (
 # entities
 from domain.entities.professional import Professional
 
-router = APIRouter("professional")
+router = APIRouter(prefix="/professional")
 
 
 @router.post("/register/generate-verification-token")

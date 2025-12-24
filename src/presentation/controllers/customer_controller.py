@@ -12,7 +12,7 @@ from application.use_cases.customer.login_by_id_customer import LoginByIdCustome
 from presentation.dependencies.customer import get_login_by_id_customer_use_case, get_register_costumer_use_case
 
 
-router = APIRouter("customer")
+router = APIRouter(prefix="/customer")
 
 
 @router.post("/")

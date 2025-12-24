@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Response, HTTPException, Request
 from presentation.dependencies.auth import get_refresh_token_use_case
 
 
-router = APIRouter("refresh-token")
+router = APIRouter(prefix="/refresh-token")
 
 
 @router.post("/")

@@ -1,8 +1,8 @@
 from datetime import date, datetime
-from typing import List, Optional
+from typing import Optional
 
 # fastapi
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 
 # schemas
 from application.schemas.appointment import ToCreateAppointment
@@ -23,7 +23,7 @@ from domain.entities.customer import Customer
 from domain.entities.appointment import Appointment
 
 
-router = APIRouter("appointment")
+router = APIRouter(prefix="/appointment")
 
 @router.post("/customer")
 def create_appointment_for_customer(
@@ -61,7 +61,7 @@ def cancel_appointment_for_customer(
     return { "msg": "Appointment canceled succesfully" }
 
 
-@router.get("/professional/list", response_model=List[Appointment])
+@router.get("/professional/list")
 def list_appointment_for_professional(
     availability_id: Optional[int] = Query(None),
     status: Optional[str] = Query(None),
