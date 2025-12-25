@@ -9,10 +9,12 @@ class RegisterOrLoginCustomer:
         self.token_service = token_service
     
     def execute(self, name: str, email: str):
-        if not name | email:
+        if not name or not email:
             raise ValueError("invalid credentials.")
 
         customer = self.customer_repository.get_by_email(email)
+        
+        print(customer)
 
         if not customer:
             customer = Customer(
@@ -29,7 +31,6 @@ class RegisterOrLoginCustomer:
         )
         
         return {
-            "token_type": "bearer",
             "access_token": access_token,
             "customer_data": {
                 "id": customer.id,

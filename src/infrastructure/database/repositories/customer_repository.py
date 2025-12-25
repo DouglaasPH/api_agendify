@@ -54,4 +54,5 @@ class CustomerRepositorySQLAlchemy(CustomerRepository):
             id=model.id,
             name=model.name,
             email=model.email,
+            status=model.status
         )
