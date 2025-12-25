@@ -19,7 +19,8 @@ class GetByIdAvailability:
             raise ValueError("Professional not found")
         
         availability = self.availability_repository.get_by_id(
-            availability_id=availability_id
+            professional_id=professional_id,
+            availability_id=availability_id,
         )
         
         if not availability:

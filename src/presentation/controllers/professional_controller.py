@@ -79,7 +79,7 @@ def login_professional(
         result = use_case.execute(form_data.username, form_data.password)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+        
     response.set_cookie(
         key="refresh_token",
         value=result["refresh_token"],

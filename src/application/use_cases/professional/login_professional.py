@@ -52,5 +52,5 @@ class LoginProfessional:
 
         return {
             **access_token,
-            "refresh_token": refresh_token
+            "refresh_token": refresh_token.token
         }

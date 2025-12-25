@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
-from domain.entities.availability import Availability
+from domain.entities.availability import Availability, AvailabilityStatus
+from domain.entities.professional import ProfessionalStatus
 from domain.repositories.availability_repository import AvailabilityRepository
 from domain.repositories.professional_repository import ProfessionalRepository
 
@@ -16,7 +17,7 @@ class CreateAvailability:
         if not professional:
             raise ValueError("Professional not found")
         
-        if not professional.can_create_availability():
+        if professional.status != ProfessionalStatus.active:
             raise ValueError("Professional is not active")
         
         availability = Availability(
@@ -25,7 +26,8 @@ class CreateAvailability:
             date=date,
             start_time=start_time,
             end_time=end_time,
-            slot_duration_minutes=slot_duration_minutes
+            slot_duration_minutes=slot_duration_minutes,
+            status= AvailabilityStatus.available,
         )
         
         self.availability_repository.save(availability)

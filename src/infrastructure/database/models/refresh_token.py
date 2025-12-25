@@ -10,8 +10,8 @@ class RefreshTokenModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     professional_id = Column(Integer, ForeignKey("professional.id"))
     token = Column(String, unique=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.now(timezone.utc))
-    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime(timezone=True), default=datetime.now(timezone.utc))
+    expires_at = Column(DateTime(timezone=True), nullable=False)
     is_revoked = Column(Boolean, default=False)
     
     professional = relationship(

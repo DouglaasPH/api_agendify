@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from domain.entities.availability import Availability
+from domain.entities.availability import Availability, AvailabilityStatus
 from domain.repositories.availability_repository import AvailabilityRepository
 from infrastructure.database.models.availability import AvailabilityModel
 
@@ -63,15 +63,3 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
             )
             for m in query.all()
         ]
-
-    def delete(self, availability: Availability) -> None:
-        self.session.query(AvailabilityModel).filter_by(
-            id=availability.id
-        ).delete()
-        self.session.commit()
-    
-    def delete_by_professional(self, professional_id: int):
-        self.session.query(AvailabilityModel).filter(
-            AvailabilityModel.professional_id == professional_id
-        ).delete()
-        self.session.commit()

@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 
+from domain.entities.professional import ProfessionalStatus
 from domain.repositories.refresh_token_repository import RefreshTokenRepository
 from domain.repositories.professional_repository import ProfessionalRepository
 from infrastructure.security.token_service import TokenService
@@ -31,16 +32,13 @@ class RefreshToken:
             raise ValueError("Refresh token expired")
         
         professional = self.professional_repository.get_by_id(refresh_token.professional_id)
-        
-        if not professional or professional.status != "active":
+
+        if not professional or professional.status != ProfessionalStatus.active:
             raise ValueError("Professional not active")
         
         access_token = self.token_service.create_access_token(
-            subject=professional.id,
+            subject=str(professional.id),
             role="professional"
         )
         
-        return {
-            **access_token,
-            "refresh_token": refresh_token
-        }
+        return access_token

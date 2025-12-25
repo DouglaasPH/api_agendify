@@ -22,12 +22,11 @@ from presentation.dependencies.auth import get_current_customer, get_current_pro
 # entities
 from domain.entities.professional import Professional
 from domain.entities.customer import Customer
-from domain.entities.availability import Availability
 
 
 router = APIRouter(prefix="/availability")
 
-@router.post("/professional")
+@router.post("/professional/create")
 def create_availability_for_professional(
     data: ToCreateAvailability,
     current_professional: Professional = Depends(get_current_professional),
@@ -44,20 +43,6 @@ def create_availability_for_professional(
     return { "msg": "Availability created succesfully"}
 
 
-@router.get("/professional/{availability_id}")
-def get_availability_for_professional(
-    availability_id: int,
-    current_professional: Professional = Depends(get_current_professional),
-    use_case: GetByIdAvailability = Depends(get_by_id_availability_use_case),
-):
-    response = use_case.execute(
-        professional_id=current_professional.id,
-        availability_id=availability_id,
-    )
-    
-    return response
-
-
 @router.get("/professional/list")
 def list_availability_for_professional(
     availability_id: Optional[int] = Query(None),
@@ -69,6 +54,7 @@ def list_availability_for_professional(
     current_professional: Professional = Depends(get_current_professional),
     use_case: ListAvailability = Depends(get_list_availability_use_case),
 ):
+    print(current_professional.id)
     response = use_case.execute(
         professional_id=current_professional.id,
         availability_id=availability_id,
@@ -82,8 +68,22 @@ def list_availability_for_professional(
     return response
 
 
-@router.put("/professional/{availability_id}")
-def get_delete_for_professional(
+@router.get("/professional/get/{availability_id}")
+def get_availability_for_professional(
+    availability_id: int,
+    current_professional: Professional = Depends(get_current_professional),
+    use_case: GetByIdAvailability = Depends(get_by_id_availability_use_case),
+):
+    response = use_case.execute(
+        professional_id=current_professional.id,
+        availability_id=availability_id,
+    )
+    
+    return response
+
+
+@router.put("/professional/delete/{availability_id}")
+def delete_for_professional(
     availability_id: int,
     current_professional: Professional = Depends(get_current_professional),
     use_case: DeleteAvailability = Depends(get_delete_availability_use_case),

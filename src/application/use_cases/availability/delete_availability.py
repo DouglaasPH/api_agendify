@@ -1,3 +1,4 @@
+from domain.entities.availability import AvailabilityStatus
 from domain.repositories.availability_repository import AvailabilityRepository
 from domain.repositories.professional_repository import ProfessionalRepository
 
@@ -18,8 +19,12 @@ class DeleteAvailability:
             raise ValueError("Professional not found")
         
         availability = self.availability_repository.get_by_id(
-            availability_id=availability_id
+            availability_id=availability_id,
+            professional_id=professional_id,
         )
+        
+        print(professional_id, availability_id)
+        print(availability)
         
         if not availability:
             raise ValueError("Availability not found")
@@ -27,6 +32,10 @@ class DeleteAvailability:
         if availability.professional_id != professional_id:
             raise PermissionError("You do not have access to this availability")
         
-        self.availability_repository.delete(
-            availability_id=availability_id
-        )
+        if availability.status == AvailabilityStatus.deleted.value:
+            raise ValueError("availability has already been deleted")
+        
+        availability.status = AvailabilityStatus.deleted
+        self.availability_repository.save(availability)
+        
+        return availability

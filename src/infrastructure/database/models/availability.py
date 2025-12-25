@@ -13,8 +13,8 @@ class AvailabilityModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     professional_id = Column(Integer, ForeignKey("professional.id"))
     date = Column(Date, nullable=False)
-    start_time = Column(DateTime, nullable=False)
-    end_time = Column(DateTime, nullable=False)
+    start_time = Column(DateTime(timezone=True), nullable=False)
+    end_time = Column(DateTime(timezone=True), nullable=False)
     slot_duration_minutes = Column(Integer, nullable=False)
     status = Column(Enum(AvailabilityStatus), default=AvailabilityStatus.available, nullable=False)
     

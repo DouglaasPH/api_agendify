@@ -26,7 +26,7 @@ class RegisterOrLoginCustomer:
             self.customer_repository.save(customer)
         
         access_token = self.token_service.create_access_token(
-            subject=customer.id,
+            subject=str(customer.id),
             role="customer",
         )
         

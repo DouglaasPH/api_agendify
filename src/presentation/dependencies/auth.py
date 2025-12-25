@@ -1,6 +1,10 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
+from sqlalchemy.orm import Session
+
+from database import get_db
+
 from domain.services.email_service import EmailService
 
 from application.use_cases.auth.refresh_token import RefreshToken
@@ -20,7 +24,7 @@ def get_current_customer(
     db = Depends(get_db)
 ):
     token_service = TokenService()
-    payload = TokenService.decode_token(token)
+    payload = token_service.decode_token(token)
     
     if payload.get("role") != "customer":
         raise HTTPException(
@@ -75,16 +79,11 @@ def get_current_professional(
     return professional
 
 
-def get_refresh_token_use_case() -> RefreshToken:
+def get_refresh_token_use_case(
+    db: Session = Depends(get_db)
+) -> RefreshToken:
     return RefreshToken(
-        refresh_token_repository=RefreshTokenRepositorySQLAlchemy(),
-        professional_repository=ProfessionalRepositorySQLAlchemy(),
+        refresh_token_repository=RefreshTokenRepositorySQLAlchemy(db),
+        professional_repository=ProfessionalRepositorySQLAlchemy(db),
         token_service=TokenService(),
-    )
-
-def get_generate_verification_token_use_case() -> GenerateVerificationToken:
-    return GenerateVerificationToken(
-        password_hasher=PasswordHasher(),
-        token_service=TokenService(),
-        email_service=EmailService(),
     )

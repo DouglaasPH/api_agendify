@@ -29,10 +29,10 @@ CREATE TABLE professional (
 CREATE TABLE refresh_token (
     id SERIAL PRIMARY KEY,
     professional_id INTEGER NOT NULL,
-    token VARCHAR(150) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP,
-    is_revoked BOOLEAN NOT NULL,
+    token VARCHAR(150) UNIQUE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP WITH TIME ZONE,
+    is_revoked BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT fk_refresh_token_professional
         FOREIGN KEY (professional_id)
         REFERENCES professional(id)
@@ -49,8 +49,8 @@ CREATE TABLE availability (
     id SERIAL PRIMARY KEY,
     professional_id INTEGER NOT NULL,
     date DATE DEFAULT CURRENT_DATE,
-    start_time TIMESTAMP NOT NULL,
-    end_time TIMESTAMP NOT NULL,
+    start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    end_time TIMESTAMP WITH TIME ZONE NOT NULL,
     slot_duration_minutes INTEGER NOT NULL,
     status availability_status DEFAULT 'available',
     CONSTRAINT fk_availability_professional

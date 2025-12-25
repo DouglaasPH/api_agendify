@@ -14,7 +14,7 @@ class LoginByIdCustomer:
             raise ValueError("Customer not found")
         
         access_token = self.token_service.create_access_token(
-            subject=customer.id,
+            subject=str(customer.id),
             role="customer",
         )
         

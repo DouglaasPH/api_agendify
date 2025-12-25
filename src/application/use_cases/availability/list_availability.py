@@ -27,11 +27,13 @@ class ListAvailability:
             raise ValueError("Professional not found")
         
         return self.availability_repository.list_by_professional(
-            professional_id=professional_id, 
-            availability_id=availability_id,
-            date=date,
-            start_time=start_time,
-            end_time=end_time,
-            slot_duration_minutes=slot_duration_minutes,
-            status=status
+            professional_id=professional_id,
+            filters={
+                "id": availability_id,
+                "date": date,
+                "start_time": start_time,
+                "end_time": end_time,
+                "slot_duration_minutes": slot_duration_minutes,
+                "status": status,
+            }
         )
