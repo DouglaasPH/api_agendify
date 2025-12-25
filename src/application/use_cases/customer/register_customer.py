@@ -19,7 +19,7 @@ class RegisterOrLoginCustomer:
                 id=None,
                 name=name,
                 email=email,
-                status=CustomerStatus.ACTIVE
+                status=CustomerStatus.active
             )
             self.customer_repository.save(customer)
         

@@ -27,5 +27,6 @@ class ResetPassword:
         hashed_password = self.password_hasher.hash(new_password)
         
         professional.change_password(hashed_password)
+        self.professional_repository.save(professional)
         
         self.refresh_token_repository.revoke_all_by_professional(professional_id)

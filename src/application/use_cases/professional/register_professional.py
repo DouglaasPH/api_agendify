@@ -24,7 +24,7 @@ class RegisterProfessional:
             profile_avatar_id=payload["profile_avatar_id"],
             phone_number=payload["phone_number"],
             chat_code=payload["chat_code"],
-            status=ProfessionalStatus.ACTIVE,
+            status=ProfessionalStatus.active,
         )
         
         self.professional_repository.save(professional)

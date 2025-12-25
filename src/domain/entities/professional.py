@@ -1,8 +1,8 @@
 from enum import Enum
 
 class ProfessionalStatus(Enum):
-    ACTIVE = "active"
-    DELETED = "deleted"
+    active = "active"
+    deleted = "deleted"
 
 
 class Professional:
@@ -28,13 +28,15 @@ class Professional:
         self.chat_code = chat_code
         self.status = status
     
-    def update_profile(self, name: str, profession: str, phone_number: str):
-        if not name:
-            raise ValueError("Required name")
+    def update_profile(self, name: str | None = None, profession: str | None = None, phone_number: str | None = None):
+        if name is not None:
+            self.name = name
+            
+        if profession is not None:
+            self.profession = profession
         
-        self.name = name
-        self.profession = profession
-        self.phone_number = phone_number
+        if phone_number is not None:
+            self.phone_number = phone_number
     
     def update_profile_avatar_id(self, new_profile_avatar_id: int):
         if not new_profile_avatar_id:
@@ -49,10 +51,10 @@ class Professional:
         self.hashed_password = new_hashed_password
     
     def is_active(self) -> bool:
-        return self.status == ProfessionalStatus.ACTIVE
+        return self.status == ProfessionalStatus.active
 
     def delete(self):
-        if self.status == ProfessionalStatus.DELETED:
+        if self.status == ProfessionalStatus.deleted:
             raise ValueError("Professional already deleted")
 
-        self.status = ProfessionalStatus.DELETED
+        self.status = ProfessionalStatus.deleted

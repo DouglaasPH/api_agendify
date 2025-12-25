@@ -39,8 +39,8 @@ class GenerateRegisterVerificationProfessional:
                 "email": data.email,
                 "profession": data.profession,
                 "hashed_password": hashed_password,
-                "profile_avatar_id": data.profileAvatarId,
-                "phone_number": data.phoneNumber,
+                "profile_avatar_id": data.profile_avatar_id,
+                "phone_number": data.phone_number,
                 "chat_code": chat_code,
             },
             expires_delta=timedelta(minutes=5)

@@ -9,8 +9,15 @@ from presentation.controllers import (
     refresh_token_controller,
 )
 
+from sqlalchemy.orm import class_mapper
+from infrastructure.database.models import *
 
-
+print("MODELS REGISTRADOS:")
+print(class_mapper(ProfessionalModel))
+print(class_mapper(RefreshTokenModel))
+print(class_mapper(CustomerModel))
+print(class_mapper(AvailabilityModel))
+print(class_mapper(AppointmentModel))
 
 
 app = FastAPI(title="Agendify API")

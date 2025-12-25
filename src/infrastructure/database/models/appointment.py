@@ -8,13 +8,20 @@ from domain.entities.appointment import AppointmentStatus
 
 
 class AppointmentModel(Base):
-    __tablename__ = "appointments"
+    __tablename__ = "appointment"
     
     id = Column(Integer, primary_key=True, index=True)
-    professional_id = Column(Integer, ForeignKey("professionals.id"))
+    professional_id = Column(Integer, ForeignKey("professional.id"))
     availability_id = Column(Integer, ForeignKey("availability.id"), unique=False)
-    status = Column(Enum(AppointmentStatus), default=AppointmentStatus.CONFIRMED, nullable=False)    
-    customer_id = Column(Integer, ForeignKey("customers.id"), unique=False)
+    status = Column(Enum(AppointmentStatus), default=AppointmentStatus.confirmed, nullable=False)    
+    customer_id = Column(Integer, ForeignKey("customer.id"), unique=False)
     
-    availabilities = relationship("Availability", back_populates="appointment")
-    customers = relationship("Customer", back_populates="appointment")
+    availability = relationship(
+        "AvailabilityModel",
+        back_populates="appointments"
+    )
+
+    customer = relationship(
+        "CustomerModel",
+        back_populates="appointments"
+    )

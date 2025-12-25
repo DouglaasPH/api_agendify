@@ -29,5 +29,5 @@ class RequestPasswordResetForProfessional:
         await self.email_service.send_password_reset_email(
             username=professional.name,
             email=professional.email,
-            link=link,
+            reset_link=link,
         )

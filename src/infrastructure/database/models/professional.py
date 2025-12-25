@@ -1,5 +1,3 @@
-from enum import Enum
-
 from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
@@ -19,9 +17,13 @@ class ProfessionalModel(Base):
     phone_number = Column(String, nullable=False)
     chat_code = Column(String, nullable=False)
     status = Column(
-        Enum(ProfessionalStatus),
-        default=ProfessionalStatus.ACTIVE,
-        nullable=False
+        Enum(ProfessionalStatus, name="professional_status"),
+        default=ProfessionalStatus.active,
+        nullable=False,
     )
     
-    refresh_tokens = relationship("RefreshTokenModel", back_populates="professional")
+    refresh_tokens = relationship(
+        "RefreshTokenModel",
+        back_populates="professional",
+        cascade="all, delete-orphan"
+    )

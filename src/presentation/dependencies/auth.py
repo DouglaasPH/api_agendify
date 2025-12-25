@@ -50,7 +50,7 @@ def get_current_professional(
     db = Depends(get_db)
 ):
     token_service = TokenService()
-    payload = TokenService.decode_token(token)
+    payload = token_service.decode_token(token)
     
     if payload.get("role") != "professional":
         raise HTTPException(

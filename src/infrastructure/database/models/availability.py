@@ -8,14 +8,18 @@ from domain.entities.availability import AvailabilityStatus
 
 
 class AvailabilityModel(Base):
-    __tablename__ = "availabilities"
+    __tablename__ = "availability"
     
     id = Column(Integer, primary_key=True, index=True)
-    professional_id = Column(Integer, ForeignKey("professionals.id"))
+    professional_id = Column(Integer, ForeignKey("professional.id"))
     date = Column(Date, nullable=False)
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime, nullable=False)
     slot_duration_minutes = Column(Integer, nullable=False)
-    status = Column(Enum(AvailabilityStatus), default=AvailabilityStatus.AVAILABLE, nullable=False)
+    status = Column(Enum(AvailabilityStatus), default=AvailabilityStatus.available, nullable=False)
     
-    appointments = relationship("Appointment", back_populates="availability", uselist=False)
+    appointments = relationship(
+        "AppointmentModel",
+        back_populates="availability",
+        cascade="all, delete-orphan"
+    )

@@ -14,7 +14,7 @@ class EmailService(ABC):
         pass
 
     @abstractmethod
-    async def send_password_reset_email(self, username: str, email: str, link: str) -> None:
+    async def send_password_reset_email(self, username: str, email: str, reset_link: str) -> None:
         pass
 
     @abstractmethod
@@ -23,6 +23,6 @@ class EmailService(ABC):
         username: str,
         old_email: str,
         new_email: str,
-        link: str
+        confirm_link: str
     ) -> None:
         pass

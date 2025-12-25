@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class CustomerStatus(Enum):
-    ACTIVE = "active"
-    DELETED = "deleted"
+    active = "active"
+    deleted = "deleted"
 
 
 class Customer:
@@ -14,10 +14,10 @@ class Customer:
         self.status = status
     
     def can_create_appointment(self) -> bool:
-        return self.status == CustomerStatus.ACTIVE
+        return self.status == CustomerStatus.active
     
     def can_cancel_appointment(self) -> bool:
-        return self.status == CustomerStatus.ACTIVE
+        return self.status == CustomerStatus.active
     
     def deactive(self):
-        self.status = CustomerStatus.DELETED
+        self.status = CustomerStatus.delete

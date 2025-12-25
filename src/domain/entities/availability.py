@@ -3,11 +3,11 @@ from datetime import date, datetime
 
 
 class AvailabilityStatus(Enum):
-    AVAILABLE = "available"
-    OCCUPIED = "occupied"
-    CANCELED = "canceled"
-    PAST = "past"
-    DELETED = "deleted"
+    available = "available"
+    occupied = "occupied"
+    canceled = "canceled"
+    past = "past"
+    deleted = "deleted"
 
 
 class Availability:
@@ -21,33 +21,33 @@ class Availability:
         self.status = status
     
     def cancel(self):
-        if self.status == AvailabilityStatus.CANCELED:
+        if self.status == AvailabilityStatus.canceled:
             raise ValueError("Availability already cancelled.")
         
-        if self.status == AvailabilityStatus.PAST:
+        if self.status == AvailabilityStatus.past:
             raise ValueError("A past availability cannot be cancelled.")
         
-        self.status = AvailabilityStatus.CANCELED
+        self.status = AvailabilityStatus.canceled
     
     def delete(self):
-        if self.status == AvailabilityStatus.DELETED:
+        if self.status == AvailabilityStatus.deleted:
             raise ValueError("Availability already deleted.")
         
-        self.status = AvailabilityStatus.DELETED
+        self.status = AvailabilityStatus.deleted
     
     def mark_as_past(self):
-        if self.status != AvailabilityStatus.AVAILABLE:
+        if self.status != AvailabilityStatus.available:
             return
         
-        self.status = AvailabilityStatus.PAST
+        self.status = AvailabilityStatus.past
     
     def occupy(self):
-        if self.status == AvailabilityStatus.OCCUPIED:
+        if self.status == AvailabilityStatus.occupied:
             raise ValueError("Availability already occupied")
-        self.status = AvailabilityStatus.OCCUPIED
+        self.status = AvailabilityStatus.occupied
 
     def release(self):
-        self.status = AvailabilityStatus.AVAILABLE
+        self.status = AvailabilityStatus.available
         
     def is_available(self):
-        return self.status == AvailabilityStatus.AVAILABLE
+        return self.status == AvailabilityStatus.available

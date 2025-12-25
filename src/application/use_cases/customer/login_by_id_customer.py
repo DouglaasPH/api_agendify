@@ -1,4 +1,3 @@
-from domain.entities.customer import Customer, CustomerStatus
 from domain.repositories.customer_repository import CustomerRepository
 from infrastructure.security.token_service import TokenService
 

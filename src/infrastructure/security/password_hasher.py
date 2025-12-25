@@ -11,7 +11,7 @@ class PasswordHasher:
         if not plain_password:
             raise ValueError("Password cannot be empty")
         
-        return self._context(plain_password)
+        return self._context.hash(plain_password)
     
     def verify(self, plain_password: str, hashed_password: str) -> bool:
         if not plain_password or not hashed_password:

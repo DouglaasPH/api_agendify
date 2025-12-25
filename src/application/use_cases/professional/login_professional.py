@@ -4,9 +4,11 @@ from datetime import datetime, timedelta, timezone
 from domain.entities.refresh_token import RefreshToken
 from domain.repositories.professional_repository import ProfessionalRepository
 from domain.repositories.refresh_token_repository import RefreshTokenRepository
+
 from infrastructure.security.token_service import TokenService
 from infrastructure.security.password_hasher import PasswordHasher
 from infrastructure.settings import settings
+
 
 class LoginProfessional:
     def __init__(
@@ -38,7 +40,7 @@ class LoginProfessional:
 
         refresh_token_value = str(uuid.uuid4())
         expires_at = datetime.now(timezone.utc) + timedelta(days=self.refresh_expire_days)
-        
+                
         refresh_token = RefreshToken(
             id=None,
             professional_id=professional.id,

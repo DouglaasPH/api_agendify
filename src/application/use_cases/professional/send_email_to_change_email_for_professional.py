@@ -39,5 +39,5 @@ class SendEmailToChangeEmailForProfessional:
             username=professional.name,
             old_email=professional.email,
             new_email=new_email,
-            link=link,
+            confirm_link=link,
         )

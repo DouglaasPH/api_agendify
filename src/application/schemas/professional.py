@@ -7,8 +7,8 @@ class DataToVerifyAccount(BaseModel):
     email: str
     password: str
     profession: str
-    profileAvatarId: int
-    phoneNumber: str
+    profile_avatar_id: int
+    phone_number: str
 
 
 class ProfessionalOutputSchema(BaseModel):

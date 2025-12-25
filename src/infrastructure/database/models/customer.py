@@ -13,8 +13,11 @@ class CustomerModel(Base):
     email = Column(String, unique=True, nullable=False)
     status = Column(
         Enum(CustomerStatus),
-        default=CustomerStatus.ACTIVE,
+        default=CustomerStatus.active,
         nullable=False
     )
     
-    appointments = relationship("AppointmentModel", back_populates="customer", uselist=False)
+    appointments = relationship(
+        "AppointmentModel",
+        back_populates="customer"
+    )

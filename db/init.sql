@@ -31,7 +31,7 @@ CREATE TABLE refresh_token (
     professional_id INTEGER NOT NULL,
     token VARCHAR(150) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP,
+    expires_at TIMESTAMP,
     is_revoked BOOLEAN NOT NULL,
     CONSTRAINT fk_refresh_token_professional
         FOREIGN KEY (professional_id)

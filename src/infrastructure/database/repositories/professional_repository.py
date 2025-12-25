@@ -54,6 +54,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
 
     def save(self, professional: Professional) -> None:
         model = ProfessionalModel(
+            id=professional.id,
             profile_avatar_id=professional.profile_avatar_id,
             name=professional.name,
             hashed_password=professional.hashed_password,
@@ -61,10 +62,10 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
             profession=professional.profession,
             phone_number=professional.phone_number,
             chat_code=professional.chat_code,
-            status=professional.status,
+            status=professional.status.value,
         )
-
-        self.session.add(model)
+        
+        self.session.merge(model)
         self.session.commit()
 
     def delete(self, professional_id: int) -> None:

@@ -9,7 +9,7 @@ class TokenService:
     
     def __init__(self):
         self.secret_key = settings.SECRET_KEY
-        self.algorithm = settings.JWT_ALGORITHM
+        self.algorithm = settings.ALGORITHM
         self.expire_miutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
         
     def create_token_for_register_professional(self, subject: dict, expires_delta: timedelta):

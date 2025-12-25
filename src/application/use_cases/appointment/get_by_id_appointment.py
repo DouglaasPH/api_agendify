@@ -1,4 +1,3 @@
-from domain.entities.appointment import Appointment
 from domain.repositories.appointment_repository import AppointmentRepository
 from domain.repositories.professional_repository import ProfessionalRepository
 

@@ -50,11 +50,11 @@ router = APIRouter(prefix="/professional")
 
 
 @router.post("/register/generate-verification-token")
-def generate_verification_token(
+async def generate_verification_token(
     data: DataToVerifyAccount,
     use_case: GenerateRegisterVerificationProfessional = Depends(get_generate_register_verification_professional_account_use_case)
 ):
-    use_case.execute(data)
+    await use_case.execute(data)
     
     return { "msg": "Email sent succesfully" }
 
@@ -69,7 +69,7 @@ def generate_verification_token(
     return { "msg": "Professional created successfully"}
 
 
-@router.post("/")
+@router.post("/login")
 def login_professional(
     response: Response,
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -99,7 +99,7 @@ def login_professional(
 
 
 @router.get("/")
-def get_user_data_by_professional_id(
+def get_professional_data_by_professional_id(
     current_professional: Professional = Depends(get_current_professional),
     use_case: GetProfessional = Depends(get_professional_use_case),
     ):
@@ -109,7 +109,7 @@ def get_user_data_by_professional_id(
 
 
 @router.get("/{chat_code}")
-def get_user_data_by_chat_code(
+def get_professional_data_by_chat_code(
     chat_code: str,
     use_case: GetProfessional = Depends(get_professional_use_case),
     ):
@@ -160,8 +160,8 @@ def check_email(
     use_case: CheckProfessionalEmail = Depends(get_check_professional_email_use_case),
 ):
     result = use_case.execute(email)
-    
-    if result.all():
+
+    if result:
         return { "exists": True }
     else: 
         return { "exists": False }
@@ -190,32 +190,32 @@ async def send_email_to_change_email(
     current_professional: Professional = Depends(get_current_professional),
     use_case: SendEmailToChangeEmailForProfessional = Depends(get_send_email_to_change_email_for_professional_account_use_case),
 ):
-    use_case.execute(current_professional.id, data.new_email)
+    await use_case.execute(current_professional.id, data.new_email)
     
     return { "msg": "Email sent successfully." }
 
 
-@router.put("/modify-email")
-def modify_email(
+@router.put("/confirm-email-modification")
+def confirm_email_modification(
     data: Token, 
     use_case: ConfirmEmailChange = Depends(get_confirm_email_change_use_case),
 ):
     use_case.execute(data.token)
 
-    return { "msg": "Password changed succesfully." }
+    return { "msg": "Email changed succesfully." }
 
 
-@router.post("/forgot-your-password")
+@router.post("/send-email-to-change-password")
 async def forgot_your_password(
     email_data: EmailData,
     use_case: RequestPasswordResetForProfessional = Depends(get_request_password_reset_for_professional_use_case),
 ):
-    use_case.execute(email_data.email)
+    await use_case.execute(email_data.email)
 
     return { "msg": "Email sent successfully." }
 
 
-@router.put("/forgot-your-password/reset-password")
+@router.put("/confirm-password-modification")
 async def reset_password(
     data: ResetPasswordData, 
     use_case: ResetPassword = Depends(get_reset_password_account_use_case),
