@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class ToCreateAppointment(BaseModel):
     professional_id: int
     availability_id: int
-    customer_id: str
+    customer_id: int
 
 
 class ListAppointments(BaseModel):

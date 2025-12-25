@@ -1,17 +1,19 @@
 from domain.repositories.appointment_repository import AppointmentRepository
+from domain.repositories.availability_repository import AvailabilityRepository
 from domain.repositories.customer_repository import CustomerRepository
 from domain.repositories.professional_repository import ProfessionalRepository
 
 
 class CancelAppointment:
-    def __init__(self, professional_repository: ProfessionalRepository, customer_repository: CustomerRepository, appointment_repository: AppointmentRepository):
+    def __init__(self, professional_repository: ProfessionalRepository, customer_repository: CustomerRepository, appointment_repository: AppointmentRepository, availability_repository: AvailabilityRepository):
         self.professional_repository = professional_repository
         self.customer_repository = customer_repository
         self.appointment_repository = appointment_repository
+        self.availability_repository = availability_repository
     
     def _get_confirmed_appointment(self, appointment_id: int):
         appointment = self.appointment_repository.get_by_id(appointment_id)
-        
+                
         if not appointment:
             raise ValueError("Appointment not found")
         
@@ -30,6 +32,11 @@ class CancelAppointment:
         
         if appointment.professional_id != professional_id:
             raise PermissionError("Appointment does not belong to this professional")
+        
+        availability = self.availability_repository.get_by_id(appointment.availability_id, appointment.professional_id)
+        
+        availability.release()
+        self.availability_repository.save(availability)
                 
         appointment.cancel()
         self.appointment_repository.save(appointment)
@@ -48,5 +55,10 @@ class CancelAppointment:
         if appointment.customer_id != customer_id:
             raise PermissionError("Appointment does not belong to this customer")
         
+        availability = self.availability_repository.get_by_id(appointment.availability_id, appointment.professional_id)
+        
+        availability.release()
+        self.availability_repository.save(availability)
+                
         appointment.cancel()
         self.appointment_repository.save(appointment)

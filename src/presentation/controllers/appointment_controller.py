@@ -20,17 +20,17 @@ from presentation.dependencies.auth import get_current_customer, get_current_pro
 # entities
 from domain.entities.professional import Professional
 from domain.entities.customer import Customer
-from domain.entities.appointment import Appointment
 
 
 router = APIRouter(prefix="/appointment")
 
-@router.post("/customer")
+@router.post("/customer/create")
 def create_appointment_for_customer(
     data: ToCreateAppointment,
     current_customer: Customer = Depends(get_current_customer),
     use_case: CreateAppointment = Depends(get_create_appointment_use_case),
 ):
+    print(data)
     use_case.execute(
         professional_id=data.professional_id,
         customer_id=current_customer.id,
@@ -40,7 +40,7 @@ def create_appointment_for_customer(
     return { "msg": "Appointment created succesfully"}
 
 
-@router.get("/customer")
+@router.get("/customer/list")
 def list_appointment_for_customer(
     current_customer: Customer = Depends(get_current_customer),
     use_case: ListAppointments = Depends(get_list_appointment),
@@ -50,7 +50,7 @@ def list_appointment_for_customer(
     return response
 
 
-@router.put("/customer/{appointment_id}")
+@router.put("/customer/cancel/{appointment_id}")
 def cancel_appointment_for_customer(
     appointment_id: int,
     current_customer: Customer = Depends(get_current_customer),
@@ -89,7 +89,7 @@ def list_appointment_for_professional(
     return response
 
 
-@router.put("/professional/{appointment_id}")
+@router.put("/professional/cancel/{appointment_id}")
 def cancel_appointment_by_id_for_professional(
     appointment_id: int,
     current_professional: Professional = Depends(get_current_professional),
@@ -100,7 +100,7 @@ def cancel_appointment_by_id_for_professional(
     return { "msg": "Appointment canceled succesfully" }
 
 
-@router.put("/professional/{appointment_id}")
+@router.get("/professional/get/{appointment_id}")
 def get_appointment_by_id_for_professional(
     appointment_id: int,
     current_professional: Professional = Depends(get_current_professional),

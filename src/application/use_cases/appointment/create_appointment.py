@@ -26,7 +26,7 @@ class CreateAppointment:
         if not customer.can_create_appointment():
             raise ValueError("customer is not active")
         
-        availability = self.availability_repository.get_by_id(availability_id)
+        availability = self.availability_repository.get_by_id(availability_id, professional_id)
         
         if not availability:
             raise ValueError("Availability not found")
@@ -47,4 +47,4 @@ class CreateAppointment:
         )
         
         self.appointment_repository.save(appointment)
-        self.availability_repository(availability)
+        self.availability_repository.save(availability)

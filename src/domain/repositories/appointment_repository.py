@@ -29,10 +29,6 @@ class AppointmentRepository(ABC):
         pass
     
     @abstractmethod
-    def delete(self, appointment_id: int) -> None:
-        pass
-    
-    @abstractmethod
     def list_by_customer(self, customer_id: int) -> list[Appointment]:
         pass
     
@@ -49,8 +45,4 @@ class AppointmentRepository(ABC):
         end_time: datetime | None = None,
         slot_duration_minutes: int | None = None,
     ) -> list[Appointment]:
-        pass
-    
-    @abstractmethod
-    def delete_by_professional(self, professional_id: int) -> None:
         pass

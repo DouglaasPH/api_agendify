@@ -46,6 +46,8 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
             .join(AppointmentModel.availability)
             .join(AppointmentModel.customer)
             .filter(AppointmentModel.professional_id == professional_id)
+            .filter(AppointmentModel.status != AppointmentStatus.canceled.value)
+            .filter(AppointmentModel.status != AppointmentStatus.deleted.value)
         )
 
         if availability_id:
@@ -76,16 +78,34 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
 
         models = query.all()
         return [self._to_entity(model) for model in models]
+    
+
+    def list_by_customer(
+        self,
+        customer_id: int,
+    ) -> list[Appointment]:
+
+        query = (
+            self.session.query(AppointmentModel)
+            .join(AppointmentModel.availability)
+            .filter(AppointmentModel.customer_id == customer_id)
+            .filter(AppointmentModel.status != AppointmentStatus.canceled.value)
+            .filter(AppointmentModel.status != AppointmentStatus.deleted.value)
+        )
+
+        models = query.all()
+        return [self._to_entity(model) for model in models]
 
     def save(self, appointment: Appointment) -> None:
         model = AppointmentModel(
+            id=appointment.id,
             professional_id=appointment.professional_id,
             customer_id=appointment.customer_id,
             availability_id=appointment.availability_id,
             status=appointment.status,
         )
 
-        self.session.add(model)
+        self.session.merge(model)
         self.session.commit()
 
     def _to_entity(self, model: AppointmentModel) -> Appointment:

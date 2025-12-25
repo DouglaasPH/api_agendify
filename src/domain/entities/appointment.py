@@ -38,4 +38,4 @@ class Appointment:
         self.status = AppointmentStatus.past
 
     def is_confirmed(self):
-        return self.status == AppointmentStatus.confirmed
+        return self.status == AppointmentStatus.confirmed.value

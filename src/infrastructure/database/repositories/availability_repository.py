@@ -43,8 +43,11 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
         )
 
     def list_by_professional(self, professional_id: int, filters: dict):
-        query = self.session.query(AvailabilityModel).filter(
-            AvailabilityModel.professional_id == professional_id
+        query = (
+            self.session.query(AvailabilityModel)
+            .filter(AvailabilityModel.professional_id == professional_id)
+            .filter(AvailabilityModel.status != AvailabilityStatus.canceled.value)
+            .filter(AvailabilityStatus.status != AvailabilityStatus.deleted.value)
         )
 
         for field, value in filters.items():
