@@ -37,8 +37,8 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
         customer_email: str | None = None,
         date: date | None = None,
         start_time: datetime | None = None,
-        end_time: datetime | None =None,
-        slot_duration_minutes: int | None =None,
+        end_time: datetime | None = None,
+        slot_duration_minutes: int | None = None,
     ) -> list[Appointment]:
 
         query = (
@@ -78,7 +78,6 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
 
         models = query.all()
         return [self._to_entity(model) for model in models]
-    
 
     def list_by_customer(
         self,
@@ -114,5 +113,7 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
             professional_id=model.professional_id,
             customer_id=model.customer_id,
             availability_id=model.availability_id,
-            status=model.status.value if hasattr(model.status, "value") else model.status,
+            status=(
+                model.status.value if hasattr(model.status, "value") else model.status
+            ),
         )

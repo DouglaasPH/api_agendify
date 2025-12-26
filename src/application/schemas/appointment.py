@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from pydantic import BaseModel
 
+
 class ToCreateAppointment(BaseModel):
     professional_id: int
     availability_id: int

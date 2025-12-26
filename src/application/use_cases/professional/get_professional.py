@@ -1,16 +1,17 @@
 from application.schemas.professional import ProfessionalOutputSchema
 from domain.repositories.professional_repository import ProfessionalRepository
 
+
 class GetProfessional:
     def __init__(self, professional_repository: ProfessionalRepository):
         self.professional_repository = professional_repository
-    
+
     def get_by_id(self, professional_id: int):
         professional = self.professional_repository.get_by_id(professional_id)
-        
+
         if not professional:
             raise ValueError("Professional not found")
-        
+
         return ProfessionalOutputSchema(
             id=professional.id,
             name=professional.name,
@@ -23,10 +24,10 @@ class GetProfessional:
 
     def get_by_chat_code(self, chat_code: str):
         professional = self.professional_repository.get_by_chat_code(chat_code)
-        
+
         if not professional:
             raise ValueError("Professional not found")
-        
+
         return ProfessionalOutputSchema(
             id=professional.id,
             name=professional.name,

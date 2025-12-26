@@ -7,17 +7,10 @@ from infrastructure.database.base import Base
 
 class CustomerModel(Base):
     __tablename__ = "customer"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
-    status = Column(
-        Enum(CustomerStatus),
-        default=CustomerStatus.active,
-        nullable=False
-    )
-    
-    appointments = relationship(
-        "AppointmentModel",
-        back_populates="customer"
-    )
+    status = Column(Enum(CustomerStatus), default=CustomerStatus.active, nullable=False)
+
+    appointments = relationship("AppointmentModel", back_populates="customer")

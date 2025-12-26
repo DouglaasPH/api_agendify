@@ -11,13 +11,12 @@ router = APIRouter(prefix="/refresh-token")
 
 @router.get("/")
 def refresh_token(
-    request: Request,
-    use_case: RefreshToken = Depends(get_refresh_token_use_case)
+    request: Request, use_case: RefreshToken = Depends(get_refresh_token_use_case)
 ):
     refresh_token = request.cookies.get("refresh_token")
     if not refresh_token:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    
+
     result = use_case.execute(refresh_token)
-    
+
     return result

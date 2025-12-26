@@ -8,19 +8,24 @@ from domain.repositories.professional_repository import ProfessionalRepository
 
 
 class ListAppointments:
-    def __init__(self, appointment_repository: AppointmentRepository, customer_repository: CustomerRepository, professional_repository: ProfessionalRepository):
+    def __init__(
+        self,
+        appointment_repository: AppointmentRepository,
+        customer_repository: CustomerRepository,
+        professional_repository: ProfessionalRepository,
+    ):
         self.appointment_repository = appointment_repository
         self.customer_repository = customer_repository
         self.professional_repository = professional_repository
-        
+
     def list_for_customer(self, customer_id: int) -> List[Appointment]:
         customer = self.customer_repository.get_by_id(customer_id)
-        
+
         if not customer:
             raise ValueError("Costumer not found")
-        
+
         return self.appointment_repository.list_by_customer(customer_id)
-    
+
     def list_for_professional(
         self,
         professional_id: int,
@@ -34,12 +39,12 @@ class ListAppointments:
         slot_duration_minutes: Optional[int] = None,
     ) -> List[Appointment]:
         professional = self.professional_repository.get_by_id(professional_id)
-        
+
         if not professional:
             raise ValueError("Professional not found")
-        
+
         return self.appointment_repository.list_by_professional(
-            professional_id=professional_id, 
+            professional_id=professional_id,
             availability_id=availability_id,
             status=status,
             customer_name=customer_name,

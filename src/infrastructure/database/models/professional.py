@@ -7,7 +7,7 @@ from infrastructure.database.base import Base
 
 class ProfessionalModel(Base):
     __tablename__ = "professional"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     profile_avatar_id = Column(Integer, nullable=False)
     name = Column(String, nullable=False)
@@ -21,9 +21,7 @@ class ProfessionalModel(Base):
         default=ProfessionalStatus.active,
         nullable=False,
     )
-    
+
     refresh_tokens = relationship(
-        "RefreshTokenModel",
-        back_populates="professional",
-        cascade="all, delete-orphan"
+        "RefreshTokenModel", back_populates="professional", cascade="all, delete-orphan"
     )

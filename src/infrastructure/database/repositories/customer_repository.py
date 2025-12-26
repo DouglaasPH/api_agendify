@@ -44,15 +44,10 @@ class CustomerRepositorySQLAlchemy(CustomerRepository):
         self.session.commit()
 
     def delete(self, customer_id: int) -> None:
-        self.session.query(CustomerModel).filter_by(
-            id=customer_id
-        ).delete()
+        self.session.query(CustomerModel).filter_by(id=customer_id).delete()
         self.session.commit()
 
     def _to_entity(self, model: CustomerModel) -> Customer:
         return Customer(
-            id=model.id,
-            name=model.name,
-            email=model.email,
-            status=model.status
+            id=model.id, name=model.name, email=model.email, status=model.status
         )

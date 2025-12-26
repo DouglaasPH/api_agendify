@@ -8,7 +8,7 @@ class AppointmentRepository(ABC):
     @abstractmethod
     def get_by_id(self, appointment_id: int) -> Appointment | None:
         pass
-    
+
     @abstractmethod
     def list_by_professional(
         self,
@@ -23,15 +23,15 @@ class AppointmentRepository(ABC):
         slot_duration_minutes: int | None = None,
     ) -> list[Appointment]:
         pass
-    
+
     @abstractmethod
     def save(self, appointment: Appointment) -> None:
         pass
-    
+
     @abstractmethod
     def list_by_customer(self, customer_id: int) -> list[Appointment]:
         pass
-    
+
     @abstractmethod
     def list_by_professional(
         self,

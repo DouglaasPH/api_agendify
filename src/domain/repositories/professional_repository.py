@@ -9,15 +9,15 @@ class ProfessionalRepository(ABC):
 
     def get_by_chat_code(self, chat_code: int) -> Professional | None:
         pass
-    
+
     @abstractmethod
     def get_by_email(self, email: str) -> Professional | None:
         pass
-    
+
     @abstractmethod
     def save(self, professional: Professional) -> None:
         pass
-    
+
     @abstractmethod
     def delete(self, professional_id: int) -> None:
         pass

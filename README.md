@@ -162,12 +162,12 @@ Infrastructure (Database, Email, Security)
 
 **🔹 Presentation**
 
-Responsável pela interface HTTP.
+Responsável pela interface HTTP da aplicação.
 
 - Controllers FastAPI
 - Validação de entrada e saída de dados
 - Injeção de dependências
-- Autenticação via JWT
+- Controle de autenticação e autorização
   <br>
   **👉 Não contém regra de negócio**
 
@@ -175,12 +175,12 @@ Responsável pela interface HTTP.
 
 **🔹 Application**
 
-Contém os casos de uso.
+Contém os casos de uso da aplicação.
 
 - Orquestra regras de negócio
 - Coordena entidades e repositórios
-- Implementa regras específicas da aplicação
-- Não conhece detalhes de banco, framework ou infraestrutura
+- Implementa fluxos específicos da aplicação
+- Independente de framework e infraestrutura
   <br>
   **👉 É onde a lógica da aplicação vive**
 
@@ -204,20 +204,18 @@ Implementa os detalhes técnicos.
 
 - SQLAlchemy (models e repositories)
 - Configuração do banco
-- Hash de senha
-- JWT
+- Hash de senha e geração de tokens
 - Envio de e-mails (FastAPI-Mail + Jinja2)
-- Configuração via `.env`
+- Leitura de variáveis de ambiente (.env)
   <br>
   **👉 Tudo que pode mudar com tecnologia fica aqui**
 
 <br>
 
-**🔐 Autenticação e Segurança**
+## 🔐 Autenticação e Segurança
 
-Autenticação baseada em JWT
-
-- Access Token + Refresh Token
+- Autenticação baseada em JWT
+- Access Token e Refresh Token
 - Senhas armazenadas com hash seguro (bcrypt)
 - Fluxos de:
   - Verificação de e-mail
@@ -227,16 +225,16 @@ Autenticação baseada em JWT
 
 <br>
 
-**🐳 Infraestrutura**
+## 🐳 Infraestrutura
 
-- Aplicação e banco rodam em containers separados
+- Aplicação e banco rodando em containers separados
 - Comunicação via Docker Network
 - Banco PostgreSQL inicializado automaticamente
 - Persistência com volumes Docker
 
 <br>
 
-**✅ Benefícios da Arquitetura**
+## ✅ Benefícios da Arquitetura
 
 - Código limpo e organizado
 - Facilidade de manutenção

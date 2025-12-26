@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 from datetime import date, datetime
 
+
 class ToCreateAvailability(BaseModel):
     date: date
     start_time: datetime

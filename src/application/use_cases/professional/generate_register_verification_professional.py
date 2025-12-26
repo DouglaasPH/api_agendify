@@ -21,14 +21,14 @@ class GenerateRegisterVerificationProfessional:
         self.token_service = token_service
         self.email_service = email_service
         self.frontend_base_url = frontend_base_url
-    
+
     async def execute(self, data):
         if self.professional_repository.get_by_email(data.email):
             raise ValueError("email already registered")
-        
+
         hashed_password = self.password_hasher.hash(data.password)
         chat_code = str(uuid.uuid4())
-        
+
         token = self.token_service.create_token_for_register_professional(
             subject={
                 "sub": data.email,
@@ -43,12 +43,13 @@ class GenerateRegisterVerificationProfessional:
                 "phone_number": data.phone_number,
                 "chat_code": chat_code,
             },
-            expires_delta=timedelta(minutes=5)
+            expires_delta=timedelta(minutes=5),
         )
-        
-        verification_link = f"{self.frontend_base_url}/validate-email-in-register/{token}"
-        
+
+        verification_link = (
+            f"{self.frontend_base_url}/validate-email-in-register/{token}"
+        )
+
         await self.email_service.send_verification_email(
-            verification_link,
-            email=data.email
+            verification_link, email=data.email
         )

@@ -13,9 +13,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 TEMPLATE_FOLDER = BASE_DIR / "infrastructure" / "email" / "templates"
 
 # Jinja2 environment (usado manualmente se quiser)
-templates_env = Environment(
-    loader=FileSystemLoader(TEMPLATE_FOLDER)
-)
+templates_env = Environment(loader=FileSystemLoader(TEMPLATE_FOLDER))
 
 
 conf = ConnectionConfig(

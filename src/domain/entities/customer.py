@@ -12,12 +12,12 @@ class Customer:
         self.name = name
         self.email = email
         self.status = status
-    
+
     def can_create_appointment(self) -> bool:
         return self.status == CustomerStatus.active
-    
+
     def can_cancel_appointment(self) -> bool:
         return self.status == CustomerStatus.active
-    
+
     def deactive(self):
         self.status = CustomerStatus.delete

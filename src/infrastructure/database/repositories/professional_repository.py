@@ -9,10 +9,12 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
 
     def __init__(self, session: Session):
         self.session = session
-    
+
     def exists_by_email(self, email: str) -> bool:
         return (
-            self.session.query(ProfessionalModel).filter(ProfessionalModel.email == email).first()
+            self.session.query(ProfessionalModel)
+            .filter(ProfessionalModel.email == email)
+            .first()
             is not None
         )
 
@@ -39,7 +41,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
             return None
 
         return self._to_entity(model)
-    
+
     def get_by_chat_code(self, chat_code: str) -> Professional | None:
         model = (
             self.session.query(ProfessionalModel)
@@ -64,14 +66,12 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
             chat_code=professional.chat_code,
             status=professional.status.value,
         )
-        
+
         self.session.merge(model)
         self.session.commit()
 
     def delete(self, professional_id: int) -> None:
-        self.session.query(ProfessionalModel).filter_by(
-            id=professional_id
-        ).delete()
+        self.session.query(ProfessionalModel).filter_by(id=professional_id).delete()
         self.session.commit()
 
     def _to_entity(self, model: ProfessionalModel) -> Professional:

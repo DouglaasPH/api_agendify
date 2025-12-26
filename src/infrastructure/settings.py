@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     REFRESH_EXPIRE_DAYS: int
-    
+
     # Email
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
@@ -23,8 +23,7 @@ class Settings(BaseSettings):
     MAIL_SSL_TLS: bool
     USE_CREDENTIALS: bool
     TEMPLATE_FOLDER: str
-    
-    
+
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",

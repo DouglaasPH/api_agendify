@@ -3,7 +3,9 @@ from typing import Optional
 
 # fastapi
 from application.use_cases.availability.delete_availability import DeleteAvailability
-from application.use_cases.availability.get_by_id_availability import GetByIdAvailability
+from application.use_cases.availability.get_by_id_availability import (
+    GetByIdAvailability,
+)
 from fastapi import APIRouter, Depends, Query
 
 # schemas
@@ -16,8 +18,16 @@ from application.use_cases.availability.list_availability import ListAvailabilit
 
 
 # dependencies
-from presentation.dependencies.availability import get_by_id_availability_use_case, get_create_availability_use_case, get_delete_availability_use_case, get_list_availability_use_case
-from presentation.dependencies.auth import get_current_customer, get_current_professional
+from presentation.dependencies.availability import (
+    get_by_id_availability_use_case,
+    get_create_availability_use_case,
+    get_delete_availability_use_case,
+    get_list_availability_use_case,
+)
+from presentation.dependencies.auth import (
+    get_current_customer,
+    get_current_professional,
+)
 
 # entities
 from domain.entities.professional import Professional
@@ -25,6 +35,7 @@ from domain.entities.customer import Customer
 
 
 router = APIRouter(prefix="/availability")
+
 
 @router.post("/professional/create")
 def create_availability_for_professional(
@@ -39,8 +50,8 @@ def create_availability_for_professional(
         end_time=data.end_time,
         slot_duration_minutes=data.slot_duration_minutes,
     )
-    
-    return { "msg": "Availability created succesfully"}
+
+    return {"msg": "Availability created succesfully"}
 
 
 @router.get("/professional/list")
@@ -64,7 +75,7 @@ def list_availability_for_professional(
         slot_duration_minutes=slot_duration_minutes,
         status=status,
     )
-    
+
     return response
 
 
@@ -78,7 +89,7 @@ def get_availability_for_professional(
         professional_id=current_professional.id,
         availability_id=availability_id,
     )
-    
+
     return response
 
 
@@ -92,7 +103,7 @@ def delete_for_professional(
         professional_id=current_professional.id,
         availability_id=availability_id,
     )
-    
+
     return response
 
 
@@ -106,5 +117,5 @@ def list_availability_for_customer(
         professional_id=professional_id,
         status="available",
     )
-    
+
     return response

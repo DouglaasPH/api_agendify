@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class EmailService(ABC):
     @abstractmethod
     async def send_welcome_email(self, username: str, email: str) -> None:
@@ -14,15 +15,13 @@ class EmailService(ABC):
         pass
 
     @abstractmethod
-    async def send_password_reset_email(self, username: str, email: str, reset_link: str) -> None:
+    async def send_password_reset_email(
+        self, username: str, email: str, reset_link: str
+    ) -> None:
         pass
 
     @abstractmethod
     async def send_email_change_confirmation(
-        self,
-        username: str,
-        old_email: str,
-        new_email: str,
-        confirm_link: str
+        self, username: str, old_email: str, new_email: str, confirm_link: str
     ) -> None:
         pass

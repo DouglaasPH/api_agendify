@@ -14,8 +14,16 @@ from application.use_cases.appointment.cancel_appointment import CancelAppointme
 from application.use_cases.appointment.get_by_id_appointment import GetByIdAppointment
 
 # dependencies
-from presentation.dependencies.appointment import get_by_id_appointment, get_cancel_appointment, get_create_appointment_use_case, get_list_appointment
-from presentation.dependencies.auth import get_current_customer, get_current_professional
+from presentation.dependencies.appointment import (
+    get_by_id_appointment,
+    get_cancel_appointment,
+    get_create_appointment_use_case,
+    get_list_appointment,
+)
+from presentation.dependencies.auth import (
+    get_current_customer,
+    get_current_professional,
+)
 
 # entities
 from domain.entities.professional import Professional
@@ -23,6 +31,7 @@ from domain.entities.customer import Customer
 
 
 router = APIRouter(prefix="/appointment")
+
 
 @router.post("/customer/create")
 def create_appointment_for_customer(
@@ -34,10 +43,10 @@ def create_appointment_for_customer(
     use_case.execute(
         professional_id=data.professional_id,
         customer_id=current_customer.id,
-        availability_id=data.availability_id
+        availability_id=data.availability_id,
     )
-    
-    return { "msg": "Appointment created succesfully"}
+
+    return {"msg": "Appointment created succesfully"}
 
 
 @router.get("/customer/list")
@@ -58,7 +67,7 @@ def cancel_appointment_for_customer(
 ):
     use_case.cancel_by_customer(appointment_id, current_customer.id)
 
-    return { "msg": "Appointment canceled succesfully" }
+    return {"msg": "Appointment canceled succesfully"}
 
 
 @router.get("/professional/list")
@@ -97,7 +106,7 @@ def cancel_appointment_by_id_for_professional(
 ):
     use_case.cancel_by_professional(appointment_id, current_professional.id)
 
-    return { "msg": "Appointment canceled succesfully" }
+    return {"msg": "Appointment canceled succesfully"}
 
 
 @router.get("/professional/get/{appointment_id}")
