@@ -229,8 +229,9 @@ http://localhost:8000
 
 ## 📘 Documentação da API
 
--- Swagger UI
-👉 http://localhost:8000/docs
+- Swagger UI
+  <br>
+  👉 http://localhost:8000/docs
 
 <br>
 
@@ -296,4 +297,4 @@ O projeto segue princípios de:
 
 ### Douglas Phelipe
 
-📧 douglasphelipedpss@gmail.com
+douglasphelipedpss@gmail.com
