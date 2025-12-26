@@ -17,7 +17,7 @@ API REST para gerenciamento de agendamentos, profissionais, clientes e autentica
 - **Jinja2** — Motor de templates para criação de e-mails dinâmicos
 - **Pydantic v2** - Validação e modelagem de dados de forma segura e eficiente
 - **Poetry** — Gerenciamento de dependências e ambientes via `pyproject.toml`
-- **Black & Flake8** - Ferramenta de formatação de código e linting para manter a qualidade do código
+- **Black, Flake8 e isort** – Ferramentas de formatação de código e linting para manter a qualidade, padronização e organização do código Python.
 
 <br>
 
