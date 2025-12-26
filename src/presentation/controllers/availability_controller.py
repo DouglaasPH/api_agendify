@@ -1,21 +1,28 @@
 from datetime import date, datetime
 from typing import Optional
 
-# fastapi
-from application.use_cases.availability.delete_availability import DeleteAvailability
-from application.use_cases.availability.get_by_id_availability import (
-    GetByIdAvailability,
-)
 from fastapi import APIRouter, Depends, Query
 
 # schemas
 from application.schemas.availability import ToCreateAvailability
 
-
 # use cases
 from application.use_cases.availability.create_availability import CreateAvailability
-from application.use_cases.availability.list_availability import ListAvailability
 
+# fastapi
+from application.use_cases.availability.delete_availability import DeleteAvailability
+from application.use_cases.availability.get_by_id_availability import (
+    GetByIdAvailability,
+)
+from application.use_cases.availability.list_availability import ListAvailability
+from domain.entities.customer import Customer
+
+# entities
+from domain.entities.professional import Professional
+from presentation.dependencies.auth import (
+    get_current_customer,
+    get_current_professional,
+)
 
 # dependencies
 from presentation.dependencies.availability import (
@@ -24,15 +31,6 @@ from presentation.dependencies.availability import (
     get_delete_availability_use_case,
     get_list_availability_use_case,
 )
-from presentation.dependencies.auth import (
-    get_current_customer,
-    get_current_professional,
-)
-
-# entities
-from domain.entities.professional import Professional
-from domain.entities.customer import Customer
-
 
 router = APIRouter(prefix="/availability")
 

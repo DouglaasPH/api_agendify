@@ -1,9 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from database import get_db
-
-
 # use cases
 from application.use_cases.professional.check_professional_email import (
     CheckProfessionalEmail,
@@ -14,7 +11,7 @@ from application.use_cases.professional.confirm_email_change_for_professional im
 from application.use_cases.professional.delete_professional import (
     DeleteProfessionalAccount,
 )
-from application.use_cases.professional.generate_register_verification_professional import (
+from application.use_cases.professional.generate_register_verification_professional import (  # noqa: E501
     GenerateRegisterVerificationProfessional,
 )
 from application.use_cases.professional.get_professional import GetProfessional
@@ -29,12 +26,13 @@ from application.use_cases.professional.request_password_reset_for_professional 
 from application.use_cases.professional.reset_password_for_professional import (
     ResetPassword,
 )
-from application.use_cases.professional.send_email_to_change_email_for_professional import (
+from application.use_cases.professional.send_email_to_change_email_for_professional import (  # noqa: E501
     SendEmailToChangeEmailForProfessional,
 )
 from application.use_cases.professional.update_professional_profile import (
     UpdateProfessionalProfile,
 )
+from infrastructure.database.database import get_db
 
 # repositories of the database
 from infrastructure.database.repositories.appointment_repository import (
@@ -50,15 +48,15 @@ from infrastructure.database.repositories.refresh_token_repository import (
     RefreshTokenRepositorySQLAlchemy,
 )
 
+# email service
+from infrastructure.email.fastapi_mail_service import FastAPIMailService
+
 # JWT
 from infrastructure.security.password_hasher import PasswordHasher
 from infrastructure.security.token_service import TokenService
 
 # settings of the env
 from infrastructure.settings import settings
-
-# email service
-from infrastructure.email.fastapi_mail_service import FastAPIMailService
 
 
 def get_confirm_email_change_use_case(

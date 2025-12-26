@@ -1,10 +1,9 @@
 from pathlib import Path
-from fastapi_mail import ConnectionConfig
 
+from fastapi_mail import ConnectionConfig
 from jinja2 import Environment, FileSystemLoader
 
 from infrastructure.settings import settings
-
 
 # Base path do projeto (src/)
 BASE_DIR = Path(__file__).resolve().parents[2]

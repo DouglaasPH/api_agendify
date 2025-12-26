@@ -1,10 +1,8 @@
-import enum
-
-from sqlalchemy import Column, Integer, DateTime, ForeignKey, Date, Enum
+from sqlalchemy import Column, Date, DateTime, Enum, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from infrastructure.database.base import Base
 from domain.entities.availability import AvailabilityStatus
+from infrastructure.database.base import Base
 
 
 class AvailabilityModel(Base):

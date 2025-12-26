@@ -1,29 +1,19 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-
 from sqlalchemy.orm import Session
 
-from database import get_db
-
-from domain.services.email_service import EmailService
-
 from application.use_cases.auth.refresh_token import RefreshToken
-from application.use_cases.auth.generate_verification_token import (
-    GenerateVerificationToken,
-)
-
-from infrastructure.database.repositories.refresh_token_repository import (
-    RefreshTokenRepositorySQLAlchemy,
-)
-from infrastructure.security.password_hasher import PasswordHasher
-from infrastructure.security.token_service import TokenService
-from presentation.dependencies.database import get_db
-from infrastructure.database.repositories.professional_repository import (
-    ProfessionalRepositorySQLAlchemy,
-)
+from infrastructure.database.database import get_db
 from infrastructure.database.repositories.customer_repository import (
     CustomerRepositorySQLAlchemy,
 )
+from infrastructure.database.repositories.professional_repository import (
+    ProfessionalRepositorySQLAlchemy,
+)
+from infrastructure.database.repositories.refresh_token_repository import (
+    RefreshTokenRepositorySQLAlchemy,
+)
+from infrastructure.security.token_service import TokenService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 

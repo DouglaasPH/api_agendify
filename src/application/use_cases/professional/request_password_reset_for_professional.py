@@ -1,6 +1,6 @@
 from domain.repositories.professional_repository import ProfessionalRepository
-from infrastructure.security.token_service import TokenService
 from domain.services.email_service import EmailService
+from infrastructure.security.token_service import TokenService
 
 
 class RequestPasswordResetForProfessional:

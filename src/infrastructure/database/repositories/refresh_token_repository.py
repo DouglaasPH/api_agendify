@@ -49,9 +49,13 @@ class RefreshTokenRepositorySQLAlchemy(RefreshTokenRepository):
             self.session.commit()
 
     def revoke_all_by_professional(self, professional_id: int) -> None:
-        self.session.query(RefreshTokenModel).filter(
-            RefreshTokenModel.professional_id == professional_id,
-            RefreshTokenModel.is_revoked == False,
-        ).update({"is_revoked": True})
+        (
+            self.session.query(RefreshTokenModel)
+            .filter(
+                RefreshTokenModel.professional_id == professional_id,
+                ~RefreshTokenModel.is_revoked,
+            )
+            .update({"is_revoked": True})
+        )
 
         self.session.commit()

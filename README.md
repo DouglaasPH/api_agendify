@@ -91,8 +91,7 @@ api_agendify/
 │    │   │   │   ├── customer_repository.py
 │    │   │   │   ├── professional_repository.py
 │    │   │   │   └── refresh_token_repository.py
-│    │   │   ├── base.py
-│    │   │   └── session.py
+│    │   │   └── database.py
 │    │   ├── email/
 │    │   │   ├── templates/
 │    │   │   │   ├── email_change_confirmation.html
@@ -118,11 +117,9 @@ api_agendify/
 │    │       ├── auth.py
 │    │       ├── availability.py
 │    │       ├── customer.py
-│    │       ├── database.py
 │    │       ├── email.py
 │    │       └── professional.py
-│    ├── main.py
-│    └── database.py
+│    └── main.py
 ├── .env.example
 ├──  .gitignore
 ├── docker-compose.yml

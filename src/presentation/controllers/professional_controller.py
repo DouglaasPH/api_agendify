@@ -1,5 +1,5 @@
 # fastapi
-from fastapi import APIRouter, Depends, Response, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import OAuth2PasswordRequestForm
 
 # schemas
@@ -11,15 +11,6 @@ from application.schemas.professional import (
     ResetPasswordData,
     Token,
 )
-
-# use cases
-from application.use_cases.professional.generate_register_verification_professional import (
-    GenerateRegisterVerificationProfessional,
-)
-from application.use_cases.professional.register_professional import (
-    RegisterProfessional,
-)
-from application.use_cases.professional.login_professional import LoginProfessional
 from application.use_cases.professional.check_professional_email import (
     CheckProfessionalEmail,
 )
@@ -29,20 +20,32 @@ from application.use_cases.professional.confirm_email_change_for_professional im
 from application.use_cases.professional.delete_professional import (
     DeleteProfessionalAccount,
 )
+
+# use cases
+from application.use_cases.professional.generate_register_verification_professional import (  # noqa: E501
+    GenerateRegisterVerificationProfessional,
+)
 from application.use_cases.professional.get_professional import GetProfessional
+from application.use_cases.professional.login_professional import LoginProfessional
 from application.use_cases.professional.logout_professional import LogoutProfessional
+from application.use_cases.professional.register_professional import (
+    RegisterProfessional,
+)
 from application.use_cases.professional.request_password_reset_for_professional import (
     RequestPasswordResetForProfessional,
 )
 from application.use_cases.professional.reset_password_for_professional import (
     ResetPassword,
 )
-from application.use_cases.professional.send_email_to_change_email_for_professional import (
+from application.use_cases.professional.send_email_to_change_email_for_professional import (  # noqa: E501
     SendEmailToChangeEmailForProfessional,
 )
 from application.use_cases.professional.update_professional_profile import (
     UpdateProfessionalProfile,
 )
+
+# entities
+from domain.entities.professional import Professional
 
 # dependencies
 from presentation.dependencies.auth import get_current_professional
@@ -61,9 +64,6 @@ from presentation.dependencies.professional import (
     get_update_professional_profile_account_use_case,
 )
 
-# entities
-from domain.entities.professional import Professional
-
 router = APIRouter(prefix="/professional")
 
 
@@ -80,7 +80,7 @@ async def generate_verification_token(
 
 
 @router.post("/register")
-def generate_verification_token(
+def register_professional(
     data: Token,
     use_case: RegisterProfessional = Depends(get_register_professional_use_case),
 ):

@@ -6,12 +6,16 @@ from fastapi import APIRouter, Depends, Query
 
 # schemas
 from application.schemas.appointment import ToCreateAppointment
+from application.use_cases.appointment.cancel_appointment import CancelAppointment
 
 # use cases
 from application.use_cases.appointment.create_appointment import CreateAppointment
-from application.use_cases.appointment.list_appointment import ListAppointments
-from application.use_cases.appointment.cancel_appointment import CancelAppointment
 from application.use_cases.appointment.get_by_id_appointment import GetByIdAppointment
+from application.use_cases.appointment.list_appointment import ListAppointments
+from domain.entities.customer import Customer
+
+# entities
+from domain.entities.professional import Professional
 
 # dependencies
 from presentation.dependencies.appointment import (
@@ -24,11 +28,6 @@ from presentation.dependencies.auth import (
     get_current_customer,
     get_current_professional,
 )
-
-# entities
-from domain.entities.professional import Professional
-from domain.entities.customer import Customer
-
 
 router = APIRouter(prefix="/appointment")
 

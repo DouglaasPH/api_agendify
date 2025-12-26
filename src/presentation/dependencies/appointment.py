@@ -1,12 +1,10 @@
 from fastapi import Depends
 
-from database import get_db
-
 from application.use_cases.appointment.cancel_appointment import CancelAppointment
 from application.use_cases.appointment.create_appointment import CreateAppointment
 from application.use_cases.appointment.get_by_id_appointment import GetByIdAppointment
 from application.use_cases.appointment.list_appointment import ListAppointments
-
+from infrastructure.database.database import get_db
 from infrastructure.database.repositories.appointment_repository import (
     AppointmentRepositorySQLAlchemy,
 )

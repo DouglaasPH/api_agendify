@@ -1,5 +1,5 @@
-from enum import Enum
 from datetime import date, datetime
+from enum import Enum
 
 
 class AvailabilityStatus(Enum):

@@ -1,6 +1,6 @@
-from domain.repositories.professional_repository import ProfessionalRepository
 from domain.repositories.appointment_repository import AppointmentRepository
 from domain.repositories.availability_repository import AvailabilityRepository
+from domain.repositories.professional_repository import ProfessionalRepository
 from domain.repositories.refresh_token_repository import RefreshTokenRepository
 
 

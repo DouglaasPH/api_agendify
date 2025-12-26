@@ -1,10 +1,10 @@
 # fastapi
-from application.use_cases.auth.refresh_token import RefreshToken
 from fastapi import APIRouter, Depends, HTTPException, Request
+
+from application.use_cases.auth.refresh_token import RefreshToken
 
 # dependencies
 from presentation.dependencies.auth import get_refresh_token_use_case
-
 
 router = APIRouter(prefix="/refresh-token")
 

@@ -1,10 +1,8 @@
-import enum
-
-from sqlalchemy import Column, Integer, ForeignKey, Enum
+from sqlalchemy import Column, Enum, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from infrastructure.database.base import Base
 from domain.entities.appointment import AppointmentStatus
+from infrastructure.database.base import Base
 
 
 class AppointmentModel(Base):

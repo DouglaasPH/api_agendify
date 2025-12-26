@@ -4,9 +4,8 @@ from datetime import datetime, timedelta, timezone
 from domain.entities.refresh_token import RefreshToken
 from domain.repositories.professional_repository import ProfessionalRepository
 from domain.repositories.refresh_token_repository import RefreshTokenRepository
-
-from infrastructure.security.token_service import TokenService
 from infrastructure.security.password_hasher import PasswordHasher
+from infrastructure.security.token_service import TokenService
 from infrastructure.settings import settings
 
 

@@ -10,21 +10,6 @@ class AppointmentRepository(ABC):
         pass
 
     @abstractmethod
-    def list_by_professional(
-        self,
-        professional_id: int,
-        availability_id: int | None = None,
-        status: AppointmentStatus | None = None,
-        customer_name: str | None = None,
-        customer_email: str | None = None,
-        date: date | None = None,
-        start_time: datetime | None = None,
-        end_time: datetime | None = None,
-        slot_duration_minutes: int | None = None,
-    ) -> list[Appointment]:
-        pass
-
-    @abstractmethod
     def save(self, appointment: Appointment) -> None:
         pass
 

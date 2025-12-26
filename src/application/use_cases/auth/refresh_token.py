@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 
 from domain.entities.professional import ProfessionalStatus
-from domain.repositories.refresh_token_repository import RefreshTokenRepository
 from domain.repositories.professional_repository import ProfessionalRepository
+from domain.repositories.refresh_token_repository import RefreshTokenRepository
 from infrastructure.security.token_service import TokenService
 
 

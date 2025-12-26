@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+import datetime as dt
 
-from datetime import date, datetime
+from pydantic import BaseModel
 
 
 class ToCreateAvailability(BaseModel):
-    date: date
-    start_time: datetime
-    end_time: datetime
+    date: dt.date
+    start_time: dt.datetime
+    end_time: dt.datetime
     slot_duration_minutes: int

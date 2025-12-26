@@ -1,6 +1,6 @@
+from domain.services.email_service import EmailService
 from infrastructure.security.password_hasher import PasswordHasher
 from infrastructure.security.token_service import TokenService
-from domain.services.email_service import EmailService
 
 
 class GenerateVerificationToken:

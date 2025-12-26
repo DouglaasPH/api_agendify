@@ -1,14 +1,12 @@
 from fastapi import Depends
 
-from database import get_db
-
 from application.use_cases.availability.create_availability import CreateAvailability
 from application.use_cases.availability.delete_availability import DeleteAvailability
 from application.use_cases.availability.get_by_id_availability import (
     GetByIdAvailability,
 )
 from application.use_cases.availability.list_availability import ListAvailability
-
+from infrastructure.database.database import get_db
 from infrastructure.database.repositories.availability_repository import (
     AvailabilityRepositorySQLAlchemy,
 )

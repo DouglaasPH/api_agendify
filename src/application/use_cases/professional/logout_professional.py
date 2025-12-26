@@ -1,5 +1,5 @@
-from domain.repositories.refresh_token_repository import RefreshTokenRepository
 from domain.repositories.professional_repository import ProfessionalRepository
+from domain.repositories.refresh_token_repository import RefreshTokenRepository
 
 
 class LogoutProfessional:

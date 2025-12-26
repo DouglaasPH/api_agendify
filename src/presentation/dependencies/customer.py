@@ -1,11 +1,9 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from database import get_db
-
 from application.use_cases.customer.login_by_id_customer import LoginByIdCustomer
 from application.use_cases.customer.register_customer import RegisterOrLoginCustomer
-
+from infrastructure.database.database import get_db
 from infrastructure.database.repositories.customer_repository import (
     CustomerRepositorySQLAlchemy,
 )
