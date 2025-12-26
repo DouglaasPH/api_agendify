@@ -134,7 +134,115 @@ api_agendify/
 
 <br>
 
-## 🧠 Arquitetura Explicada
+## 🧠 Arquitetura
+
+A API Agendify foi construída seguindo os princípios da **Clean Architecture**, **Separation of Concerns** e **Dependency Inversion**, com uma abordagem de **Domain-Driven Design (DDD simplificado)**, visando manter o código **organizado**, **desacoplado**, **testável** e **fácil de evoluir**.
+
+A aplicação separa claramente **regra de negócio**, **orquestração**, **infraestrutura** e **interface HTTP**, evitando dependência direta de frameworks ou banco de dados no núcleo do domínio.
+
+### 📌 Visão Geral
+
+O fluxo da aplicação segue o padrão:
+
+```
+HTTP Request
+   ↓
+Controller (Presentation)
+   ↓
+Use Case (Application)
+   ↓
+Domain (Entities / Rules)
+   ↓
+Infrastructure (Database, Email, Security)
+```
+
+<br>
+
+## 🧩 Camadas
+
+**🔹 Presentation**
+
+Responsável pela interface HTTP.
+
+- Controllers FastAPI
+- Validação de entrada e saída de dados
+- Injeção de dependências
+- Autenticação via JWT
+  <br>
+  **👉 Não contém regra de negócio**
+
+<br>
+
+**🔹 Application**
+
+Contém os casos de uso.
+
+- Orquestra regras de negócio
+- Coordena entidades e repositórios
+- Implementa regras específicas da aplicação
+- Não conhece detalhes de banco, framework ou infraestrutura
+  <br>
+  **👉 É onde a lógica da aplicação vive**
+
+<br>
+
+**🔹 Domain**
+
+Define o modelo de negócio puro.
+
+- Entidades (Professional, Customer, Appointment, etc.)
+- Interfaces de repositórios
+- Regras independentes de tecnologia
+  <br>
+  **👉 Não conhece FastAPI, banco ou Docker**
+
+<br>
+
+**🔹 Infrastructure**
+
+Implementa os detalhes técnicos.
+
+- SQLAlchemy (models e repositories)
+- Configuração do banco
+- Hash de senha
+- JWT
+- Envio de e-mails (FastAPI-Mail + Jinja2)
+- Configuração via `.env`
+  <br>
+  **👉 Tudo que pode mudar com tecnologia fica aqui**
+
+<br>
+
+**🔐 Autenticação e Segurança**
+
+Autenticação baseada em JWT
+
+- Access Token + Refresh Token
+- Senhas armazenadas com hash seguro (bcrypt)
+- Fluxos de:
+  - Verificação de e-mail
+  - Recuperação de senha
+  - Alteração de e-mail
+  - Logout com invalidação de refresh token
+
+<br>
+
+**🐳 Infraestrutura**
+
+- Aplicação e banco rodam em containers separados
+- Comunicação via Docker Network
+- Banco PostgreSQL inicializado automaticamente
+- Persistência com volumes Docker
+
+<br>
+
+**✅ Benefícios da Arquitetura**
+
+- Código limpo e organizado
+- Facilidade de manutenção
+- Testes mais simples
+- Evolução sem acoplamento
+- Separação clara de responsabilidades
 
 <br>
 
@@ -262,34 +370,6 @@ black .
 ```bash
 flake8 .
 ```
-
-<br>
-
-## 🔐 Autenticação
-
-- JWT Access Token
-- Refresh Token
-- Hash de senha com bcrypt
-- Fluxo de verificação de cadastro por e-mail
-
-<br>
-
-## ✉️ Email
-
-- Envio de e-mails usando FastAPI-Mail
-- Templates com _Jinja2_
-- Configuração via **.env**
-
-<br>
-
-## 🧠 Arquitetura
-
-O projeto segue princípios de:
-
-- Clean Architecture
-- Separation of Concerns
-- Dependency Inversion
-- Domain-driven design (DDD simplificado)
 
 <br>
 
