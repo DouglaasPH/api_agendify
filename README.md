@@ -25,9 +25,9 @@ API REST para gerenciamento de agendamentos, profissionais, clientes e autentica
 
 ```
 api_agendify/
-├    db/
+├─── db/
 │    └── init.sql
-│    src/
+├─── src/
 │    ├── application/
 │    │   ├── schemas/
 │    │   │   ├── appointment.py
@@ -35,35 +35,35 @@ api_agendify/
 │    │   │   ├── customer.py
 │    │   │   └── professional.py
 │    │   └── use_cases/
-│    │   │   ├── appointment/
-│    │   │   │   ├── cancel_appointment.py
-│    │   │   │   ├── create_appointment.py
-│    │   │   │   ├── get_by_id_appointment.py
-│    │   │   │   └── list_appointment.py
-│    │   │   ├── auth/
-│    │   │   │   ├── generate_verification_token.py
-│    │   │   │   └── refresh_token.py
-│    │   │   ├── availability/
-│    │   │   │   ├── create_availability.py
-│    │   │   │   ├── delete_availability.py
-│    │   │   │   ├── get_by_id_availability.py
-│    │   │   │   └── list_availability.py
-│    │   │   ├── customer/
-│    │   │   │   ├── login_by_id_customer.py
-│    │   │   │   └── register_customer.py
-│    │   │   └── professional/
-│    │   │   │   ├── check_professional_email.py
-│    │   │   │   ├── confirm_email_change_for_professional.py
-│    │   │   │   ├── delete_professional.py
-│    │   │   │   ├── generate_register_verification_professional.py
-│    │   │   │   ├── get_professional.py
-│    │   │   │   ├── login_professional.py
-│    │   │   │   ├── logout_professional.py
-│    │   │   │   ├── register_professional.py
-│    │   │   │   ├── request_password_for_professional.py
-│    │   │   │   ├── reset_password_for_professional.py
-│    │   │   │   ├── send_email_to_change_email_for_professional.py
-│    │   │   │   └── update_professional_profile.py
+│    │       ├── appointment/
+│    │       │   ├── cancel_appointment.py
+│    │       │   ├── create_appointment.py
+│    │       │   ├── get_by_id_appointment.py
+│    │       │   └── list_appointment.py
+│    │       ├── auth/
+│    │       │   ├── generate_verification_token.py
+│    │       │   └── refresh_token.py
+│    │       ├── availability/
+│    │       │   ├── create_availability.py
+│    │       │   ├── delete_availability.py
+│    │       │   ├── get_by_id_availability.py
+│    │       │   └── list_availability.py
+│    │       ├── customer/
+│    │       │   ├── login_by_id_customer.py
+│    │       │   └── register_customer.py
+│    │       └── professional/
+│    │           ├── check_professional_email.py
+│    │           ├── confirm_email_change_for_professional.py
+│    │           ├── delete_professional.py
+│    │           ├── generate_register_verification_professional.py
+│    │           ├── get_professional.py
+│    │           ├── login_professional.py
+│    │           ├── logout_professional.py
+│    │           ├── register_professional.py
+│    │           ├── request_password_for_professional.py
+│    │           ├── reset_password_for_professional.py
+│    │           ├── send_email_to_change_email_for_professional.py
+│    │           └── update_professional_profile.py
 │    ├── domain/
 │    │   ├── entities/
 │    │   │   ├── appointment.py
@@ -76,7 +76,7 @@ api_agendify/
 │    │   │   ├── customer_repository.py
 │    │   │   └── professional_repository.py
 │    │   └── services/
-│    │   │   └── email_service.py
+│    │       └── email_service.py
 │    ├── infrastructure/
 │    │   ├── database/
 │    │   │   ├── models/
