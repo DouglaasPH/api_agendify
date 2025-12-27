@@ -21,7 +21,6 @@ class LoginByIdCustomer:
         )
 
         return {
-            "token_type": "bearer",
             "access_token": access_token,
             "customer_data": {
                 "id": customer.id,

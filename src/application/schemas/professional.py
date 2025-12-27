@@ -33,6 +33,11 @@ class DataToUpdate(BaseModel):
     phone_number: Optional[str] = None
 
 
+class ModifyPasswordData(BaseModel):
+    new_password: str
+    old_password: str
+
+
 class ProfessionalEmailToUpdate(BaseModel):
     new_email: str
 
