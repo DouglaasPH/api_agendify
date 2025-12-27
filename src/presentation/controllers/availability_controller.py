@@ -97,12 +97,12 @@ def delete_for_professional(
     current_professional: Professional = Depends(get_current_professional),
     use_case: DeleteAvailability = Depends(get_delete_availability_use_case),
 ):
-    response = use_case.execute(
+    use_case.execute(
         professional_id=current_professional.id,
         availability_id=availability_id,
     )
 
-    return response
+    return {"msg": "Availability deleted succesfully"}
 
 
 @router.get("/customer/list/{professional_id}")
