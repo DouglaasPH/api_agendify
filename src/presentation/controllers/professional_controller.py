@@ -7,6 +7,7 @@ from application.schemas.professional import (
     DataToUpdate,
     DataToVerifyAccount,
     EmailData,
+    ModifyPasswordData,
     ProfessionalEmailToUpdate,
     ResetPasswordData,
     Token,
@@ -240,6 +241,21 @@ async def reset_password(
     data: ResetPasswordData,
     use_case: ResetPassword = Depends(get_reset_password_account_use_case),
 ):
-    use_case.execute(data.token, data.new_password)
+    use_case.without_login(data.token, data.new_password)
+
+    return {"msg": "Password changed succesfully."}
+
+
+@router.put("/modify-password-with-login")
+def modify_password_with_login(
+    data: ModifyPasswordData,
+    current_professional: Professional = Depends(get_current_professional),
+    use_case: ResetPassword = Depends(get_reset_password_account_use_case),
+):
+    use_case.with_login(
+        professional_id=current_professional.id,
+        old_password=data.old_password,
+        new_password=data.new_password,
+    )
 
     return {"msg": "Password changed succesfully."}
