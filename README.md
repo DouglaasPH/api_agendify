@@ -254,13 +254,16 @@ Implementa os detalhes técnicos.
 | **POST** | `/professional/send-email-to-change-password`         | Enviar email para mudança de senha (autorização)                  |
 | **PUT**  | `/professional/confirm-email-modification`            | Confirmar modificação de email (autorização)                      |
 | **PUT**  | `/professional/confirm-password-modification`         | Confirmar modificação de senha (autorização)                      |
+| **PUT**  | `/professional/modify-password-with-login`            | Modificar senha com profissional autenticadado (autorização)      |
 | **POST** | `/professional/login`                                 | Login                                                             |
 | **POST** | `/professional/generate-verification-token`           | Gerar token para confimar criação de conta no email (autorização) |
 | **POST** | `/professional/register`                              | Registrar conta                                                   |
+| **POST** | `/professional/logout`                                | Logout                                                            |
+| **POST** | `/professional/delete`                                | Deletar conta                                                     |
 | **POST** | `/customer/login/{customer_id}`                       | Login através do customer_id                                      |
 | **POST** | `/customer/`                                          | Registrar, se tiver conta faça login                              |
 | **POST** | `/availability/professional/create`                   | Criar disponibilidade por meio do profissional                    |
-| **GET**  | `/availability/professional/{availability_id}`        | Pegar disponibilidade para profissional                           |
+| **GET**  | `/availability/professional/get/{availability_id}`    | Pegar disponibilidade para profissional                           |
 | **GET**  | `/availability/professional/list`                     | Listar disponibilidade para profissional                          |
 | **GET**  | `/availability/customer/list`                         | Listar disponibilidade para cliente                               |
 | **PUT**  | `/availability/professional/delete/{availability_id}` | Deletar disponibilidade por meio do profissional                  |
