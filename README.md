@@ -258,7 +258,7 @@ Implementa os detalhes técnicos.
 | **POST** | `/professional/generate-verification-token`           | Gerar token para confimar criação de conta no email (autorização) |
 | **POST** | `/professional/register`                              | Registrar conta                                                   |
 | **POST** | `/customer/login/{customer_id}`                       | Login através do customer_id                                      |
-| **POST** | `/customers/`                                         | Registrar, se tiver conta faça login                              |
+| **POST** | `/customer/`                                          | Registrar, se tiver conta faça login                              |
 | **POST** | `/availability/professional/create`                   | Criar disponibilidade por meio do profissional                    |
 | **GET**  | `/availability/professional/{availability_id}`        | Pegar disponibilidade para profissional                           |
 | **GET**  | `/availability/professional/list`                     | Listar disponibilidade para profissional                          |
