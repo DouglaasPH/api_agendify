@@ -1,10 +1,10 @@
-# 🧩 API Agendify
+# API Agendify
 
 API REST para gerenciamento de agendamentos, profissionais, clientes e autenticação, desenvolvida com **FastAPI**, **SQLAlchemy**, **PostgreSQL** e **Docker**.
 
 <br>
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Python 3.11** - Linguagem de programação do projeto
 - **FastAPI** — Framework moderno e rápido
@@ -21,7 +21,7 @@ API REST para gerenciamento de agendamentos, profissionais, clientes e autentica
 
 <br>
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 api_agendify/
@@ -131,13 +131,13 @@ api_agendify/
 
 <br>
 
-## 🧠 Arquitetura
+## Arquitetura
 
 A API Agendify foi construída seguindo os princípios da **Clean Architecture**, **Separation of Concerns** e **Dependency Inversion**, com uma abordagem de **Domain-Driven Design (DDD simplificado)**, visando manter o código **organizado**, **desacoplado**, **testável** e **fácil de evoluir**.
 
 A aplicação separa claramente **regra de negócio**, **orquestração**, **infraestrutura** e **interface HTTP**, evitando dependência direta de frameworks ou banco de dados no núcleo do domínio.
 
-### 📌 Visão Geral
+### Visão Geral
 
 O fluxo da aplicação segue o padrão:
 
@@ -155,89 +155,47 @@ Infrastructure (Database, Email, Security)
 
 <br>
 
-## 🧩 Camadas
+## Camadas
 
-**🔹 Presentation**
+**Presentation**
 
-Responsável pela interface HTTP da aplicação.
-
-- Controllers FastAPI
-- Validação de entrada e saída de dados
-- Injeção de dependências
-- Controle de autenticação e autorização
-  <br>
-  **👉 Não contém regra de negócio**
+Responsável pela interface HTTP da aplicação, incluindo a implementação de controllers com FastAPI, a validação de dados de entrada e saída, o uso de injeção de dependências e o controle de autenticação e autorização.
 
 <br>
 
-**🔹 Application**
+**Application**
 
-Contém os casos de uso da aplicação.
-
-- Orquestra regras de negócio
-- Coordena entidades e repositórios
-- Implementa fluxos específicos da aplicação
-- Independente de framework e infraestrutura
-  <br>
-  **👉 É onde a lógica da aplicação vive**
+Contém os casos de uso da aplicação, sendo responsável por orquestrar as regras de negócio, coordenar entidades e repositórios e implementar fluxos específicos da aplicação, de forma independente de frameworks e da infraestrutura.
 
 <br>
 
-**🔹 Domain**
+**Domain**
 
-Define o modelo de negócio puro.
-
-- Entidades (Professional, Customer, Appointment, etc.)
-- Interfaces de repositórios
-- Regras independentes de tecnologia
-  <br>
-  **👉 Não conhece FastAPI, banco ou Docker**
+Define o modelo de negócio puro, incluindo as entidades (como Professional, Customer e Appointment), as interfaces de repositórios e as regras de negócio independentes de tecnologia.
 
 <br>
 
-**🔹 Infrastructure**
+**Infrastructure**
 
-Implementa os detalhes técnicos.
-
-- SQLAlchemy (models e repositories)
-- Configuração do banco
-- Hash de senha e geração de tokens
-- Envio de e-mails (FastAPI-Mail + Jinja2)
-- Leitura de variáveis de ambiente (.env)
-  <br>
-  **👉 Tudo que pode mudar com tecnologia fica aqui**
+Implementa os detalhes técnicos da aplicação, incluindo os models e repositórios com SQLAlchemy, a configuração do banco de dados, o hash de senhas e a geração de tokens, o envio de e-mails utilizando FastAPI-Mail com Jinja2 e a leitura de variáveis de ambiente por meio de arquivos .env.
 
 <br>
 
-## 🔐 Autenticação e Segurança
+## Autenticação e Segurança
 
-- Autenticação baseada em JWT
-- Access Token e Refresh Token
-- Senhas armazenadas com hash seguro (bcrypt)
-- Fluxos de:
-  - Verificação de e-mail
-  - Recuperação de senha
-  - Alteração de e-mail
-  - Logout com invalidação de refresh token
+A autenticação é baseada em JWT, com uso de Access Token e Refresh Token. As senhas são armazenadas utilizando hash seguro com bcrypt, e o sistema implementa fluxos completos de verificação de e-mail, recuperação de senha, alteração de e-mail e logout com invalidação do refresh token.
 
 <br>
 
-## 🐳 Infraestrutura
+## Infraestrutura
 
-- Aplicação e banco rodando em containers separados
-- Comunicação via Docker Network
-- Banco PostgreSQL inicializado automaticamente
-- Persistência com volumes Docker
+A aplicação e o banco de dados rodam em containers separados, comunicando-se por meio de uma Docker Network. O banco PostgreSQL é inicializado automaticamente, e a persistência dos dados é garantida com o uso de volumes Docker.
 
 <br>
 
 ## ✅ Benefícios da Arquitetura
 
-- Código limpo e organizado
-- Facilidade de manutenção
-- Testes mais simples
-- Evolução sem acoplamento
-- Separação clara de responsabilidades
+A arquitetura prioriza código limpo e bem organizado, facilitando a manutenção, simplificando a escrita de testes, permitindo a evolução do sistema sem acoplamento excessivo e garantindo uma separação clara de responsabilidades.
 
 <br>
 
@@ -276,7 +234,7 @@ Implementa os detalhes técnicos.
 
 <br>
 
-## ⚙️ Pré-requisitos
+## Pré-requisitos
 
 - **Docker**
 - **Docker Compose**
@@ -284,7 +242,7 @@ Implementa os detalhes técnicos.
 
 <br>
 
-## ⚙️ Variáveis de Ambiente (**.env**)
+## Variáveis de Ambiente (**.env**)
 
 Crie um arquivo **.env** na raiz do projeto:
 
@@ -316,7 +274,7 @@ TEMPLATE_FOLDER=templates
 
 <br>
 
-## 🐳 Docker
+## Docker
 
 Subir a aplicação + banco de dados
 
@@ -333,7 +291,7 @@ http://localhost:8000
 
 <br>
 
-## 📘 Documentação da API
+## Documentação da API
 
 - Swagger UI
   <br>
@@ -341,7 +299,7 @@ http://localhost:8000
 
 <br>
 
-## 🗄️ Banco de Dados
+## Banco de Dados
 
 - PostgreSQL 16
 - Inicializado automaticamente via init.sql
@@ -355,7 +313,7 @@ docker exec -it agendify_db psql -U root_agendify agendify
 
 <br>
 
-## 🧪 Qualidade de Código
+## Qualidade de Código
 
 ### Black
 
@@ -370,9 +328,3 @@ flake8 .
 ```
 
 <br>
-
-## 👨‍💻 Autor
-
-### Douglas Phelipe
-
-douglasphelipedpss@gmail.com
