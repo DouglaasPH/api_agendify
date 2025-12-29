@@ -193,7 +193,7 @@ A aplicação e o banco de dados rodam em containers separados, comunicando-se p
 
 <br>
 
-## ✅ Benefícios da Arquitetura
+## Benefícios da Arquitetura
 
 A arquitetura prioriza código limpo e bem organizado, facilitando a manutenção, simplificando a escrita de testes, permitindo a evolução do sistema sem acoplamento excessivo e garantindo uma separação clara de responsabilidades.
 
@@ -295,7 +295,7 @@ http://localhost:8000
 
 - Swagger UI
   <br>
-  👉 http://localhost:8000/docs
+  http://localhost:8000/docs
 
 <br>
 
