@@ -2,7 +2,7 @@ from sqlalchemy import Column, Enum, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from domain.entities.appointment import AppointmentStatus
-from infrastructure.database.base import Base
+from infrastructure.database.database import Base
 
 
 class AppointmentModel(Base):

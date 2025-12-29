@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import class_mapper
 
-from infrastructure.database.base import Base
 from infrastructure.database.models.appointment import AppointmentModel
 from infrastructure.database.models.availability import AvailabilityModel
 from infrastructure.database.models.customer import CustomerModel
@@ -17,7 +16,6 @@ from presentation.controllers import (
 )
 
 print("MODELS REGISTRADOS:")
-print(class_mapper(Base))
 print(class_mapper(ProfessionalModel))
 print(class_mapper(RefreshTokenModel))
 print(class_mapper(CustomerModel))

@@ -2,7 +2,7 @@ from sqlalchemy import Column, Enum, Integer, String
 from sqlalchemy.orm import relationship
 
 from domain.entities.professional import ProfessionalStatus
-from infrastructure.database.base import Base
+from infrastructure.database.database import Base
 
 
 class ProfessionalModel(Base):

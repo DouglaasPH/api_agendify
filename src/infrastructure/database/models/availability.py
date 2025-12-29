@@ -2,7 +2,7 @@ from sqlalchemy import Column, Date, DateTime, Enum, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from domain.entities.availability import AvailabilityStatus
-from infrastructure.database.base import Base
+from infrastructure.database.database import Base
 
 
 class AvailabilityModel(Base):
