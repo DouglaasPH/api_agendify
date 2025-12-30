@@ -8,21 +8,29 @@ CREATE TABLE customer (
     status customer_status DEFAULT 'active'
 );
 
+CREATE UNIQUE INDEX unique_active_customer_email
+ON customer (email)
+WHERE status = 'active';
+
 
 --PROFESSIONAL
 CREATE TYPE professional_status AS ENUM ('active', 'deleted');
 
 CREATE TABLE professional (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
     profile_avatar_id INTEGER NOT NULL,
     name VARCHAR(150) NOT NULL,
     hashed_password VARCHAR(150) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
+    email VARCHAR(150) NOT NULL,
     profession VARCHAR(150) NOT NULL,
     phone_number VARCHAR(150) NOT NULL,
     chat_code VARCHAR(150) NOT NULL,
-    status professional_status DEFAULT 'active'
+    status professional_status NOT NULL DEFAULT 'active'
 );
+
+CREATE UNIQUE INDEX unique_active_professional_email
+ON professional (email)
+WHERE status = 'active';
 
 
 -- REFRESH TOKEN

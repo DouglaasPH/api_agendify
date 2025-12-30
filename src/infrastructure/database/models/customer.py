@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Enum, Integer, String
+from sqlalchemy import Column, Enum, Integer, String, Index
 from sqlalchemy.orm import relationship
 
 from domain.entities.customer import CustomerStatus
@@ -14,3 +14,12 @@ class CustomerModel(Base):
     status = Column(Enum(CustomerStatus), default=CustomerStatus.active, nullable=False)
 
     appointments = relationship("AppointmentModel", back_populates="customer")
+
+    __table_args__ = (
+        Index(
+            "unique_active_customer_email",
+            "email",
+            unique=True,
+            postgresql_where=(status == CustomerStatus.active),
+        ),
+    )
