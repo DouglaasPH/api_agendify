@@ -26,19 +26,21 @@ class DeleteProfessionalAccount:
         self.refresh_token_repository.revoke_all_by_professional(professional_id)
 
         all_appointments = self.appointment_repository.list_by_professional(
-            professional_id
+            professional_id,
+            {}
         )
 
         for appointment in all_appointments:
-            appointment.cancel()
+            appointment.delete()
             self.appointment_repository.save(appointment)
 
         all_availabilities = self.availability_repository.list_by_professional(
-            professional_id
+            professional_id,
+            {}
         )
 
         for availability in all_availabilities:
-            availability.cancel()
+            availability.delete()
             self.availability_repository.save(availability)
 
         professional.delete()

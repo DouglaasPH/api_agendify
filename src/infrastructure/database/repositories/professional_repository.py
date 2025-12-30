@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from domain.entities.professional import Professional
+from domain.entities.professional import Professional, ProfessionalStatus
 from domain.repositories.professional_repository import ProfessionalRepository
 from infrastructure.database.models.professional import ProfessionalModel
 
@@ -14,6 +14,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
         return (
             self.session.query(ProfessionalModel)
             .filter(ProfessionalModel.email == email)
+            .filter(ProfessionalModel.status != ProfessionalStatus.deleted.value)
             .first()
             is not None
         )
@@ -22,6 +23,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
         model = (
             self.session.query(ProfessionalModel)
             .filter(ProfessionalModel.id == professional_id)
+            .filter(ProfessionalModel.status != ProfessionalStatus.deleted.value)
             .first()
         )
 
@@ -34,6 +36,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
         model = (
             self.session.query(ProfessionalModel)
             .filter(ProfessionalModel.email == email)
+            .filter(ProfessionalModel.status != ProfessionalStatus.deleted.value)
             .first()
         )
 
@@ -46,6 +49,7 @@ class ProfessionalRepositorySQLAlchemy(ProfessionalRepository):
         model = (
             self.session.query(ProfessionalModel)
             .filter(ProfessionalModel.chat_code == chat_code)
+            .filter(ProfessionalModel.status != ProfessionalStatus.deleted.value)
             .first()
         )
 

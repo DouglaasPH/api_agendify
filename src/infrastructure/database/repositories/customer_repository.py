@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from domain.entities.customer import Customer
+from domain.entities.customer import Customer, CustomerStatus
 from domain.repositories.customer_repository import CustomerRepository
 from infrastructure.database.models.customer import CustomerModel
 
@@ -14,6 +14,7 @@ class CustomerRepositorySQLAlchemy(CustomerRepository):
         model = (
             self.session.query(CustomerModel)
             .filter(CustomerModel.id == customer_id)
+            .filter(CustomerModel.status != CustomerStatus.deleted.value)
             .first()
         )
 
@@ -26,6 +27,7 @@ class CustomerRepositorySQLAlchemy(CustomerRepository):
         model = (
             self.session.query(CustomerModel)
             .filter(CustomerModel.email == email)
+            .filter(CustomerModel.status != CustomerStatus.deleted.value)
             .first()
         )
 
@@ -36,11 +38,12 @@ class CustomerRepositorySQLAlchemy(CustomerRepository):
 
     def save(self, customer: Customer) -> None:
         model = CustomerModel(
+            id=customer.id,
             name=customer.name,
             email=customer.email,
         )
 
-        self.session.add(model)
+        self.session.merge(model)
         self.session.commit()
 
     def delete(self, customer_id: int) -> None:

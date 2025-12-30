@@ -11,12 +11,13 @@ class RefreshTokenRepositorySQLAlchemy(RefreshTokenRepository):
 
     def save(self, token: RefreshToken) -> None:
         model = RefreshTokenModel(
+            id=token.id,
             professional_id=token.professional_id,
             token=token.token,
             expires_at=token.expires_at,
             is_revoked=token.is_revoked,
         )
-        self.session.add(model)
+        self.session.merge(model)
         self.session.commit()
 
     def get_by_token(self, token: str) -> RefreshToken | None:

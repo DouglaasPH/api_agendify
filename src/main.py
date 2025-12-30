@@ -25,12 +25,6 @@ print(class_mapper(AppointmentModel))
 
 app = FastAPI(title="Agendify API")
 
-app.include_router(appointment_controller.router)
-app.include_router(availability_controller.router)
-app.include_router(customer_controller.router)
-app.include_router(professional_controller.router)
-app.include_router(refresh_token_controller.router)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -38,3 +32,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(appointment_controller.router)
+app.include_router(availability_controller.router)
+app.include_router(customer_controller.router)
+app.include_router(professional_controller.router)
+app.include_router(refresh_token_controller.router)
+

@@ -12,6 +12,7 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
 
     def save(self, availability: Availability) -> None:
         model = AvailabilityModel(
+            id=availability.id,
             professional_id=availability.professional_id,
             date=availability.date,
             start_time=availability.start_time,
@@ -19,13 +20,14 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
             slot_duration_minutes=availability.slot_duration_minutes,
             status=availability.status,
         )
-        self.session.add(model)
+        self.session.merge(model)
         self.session.commit()
 
     def get_by_id(self, availability_id: int, professional_id: int):
         model = (
             self.session.query(AvailabilityModel)
             .filter_by(id=availability_id, professional_id=professional_id)
+            .filter(AvailabilityModel.status != AvailabilityStatus.deleted.value)
             .first()
         )
 
@@ -47,7 +49,7 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
             self.session.query(AvailabilityModel)
             .filter(AvailabilityModel.professional_id == professional_id)
             .filter(AvailabilityModel.status != AvailabilityStatus.canceled.value)
-            .filter(AvailabilityStatus.status != AvailabilityStatus.deleted.value)
+            .filter(AvailabilityModel.status != AvailabilityStatus.deleted.value)
         )
 
         for field, value in filters.items():

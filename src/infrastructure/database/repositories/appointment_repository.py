@@ -20,6 +20,7 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
             .options(joinedload(AppointmentModel.availability))
             .options(joinedload(AppointmentModel.customer))
             .filter(AppointmentModel.id == appointment_id)
+            .filter(AppointmentModel.status != AppointmentStatus.deleted.value)
             .first()
         )
 
