@@ -15,6 +15,8 @@ from presentation.controllers import (
     refresh_token_controller,
 )
 
+from infrastructure.settings import settings
+
 print("MODELS REGISTRADOS:")
 print(class_mapper(ProfessionalModel))
 print(class_mapper(RefreshTokenModel))
@@ -27,7 +29,7 @@ app = FastAPI(title="Agendify API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[settings.FRONTEND_BASE_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

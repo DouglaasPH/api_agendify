@@ -258,6 +258,7 @@ REFRESH_EXPIRE_DAYS=7
 
 # Frontend
 FRONTEND_BASE_URL=http://localhost:3000
+FRONTEND_DOMAIN=localhost
 
 # Email
 MAIL_USERNAME=example@gmail.com

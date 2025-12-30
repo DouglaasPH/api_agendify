@@ -65,6 +65,9 @@ from presentation.dependencies.professional import (
     get_update_professional_profile_account_use_case,
 )
 
+# settings
+from infrastructure.settings import settings
+
 router = APIRouter(prefix="/professional")
 
 
@@ -109,7 +112,7 @@ def login_professional(
         samesite="lax",
         max_age=60 * 60 * 48,  # 2 days
         path="/",
-        domain="localhost",
+        domain=settings.FRONTEND_DOMAIN,
     )
 
     return {
@@ -149,7 +152,7 @@ def logout(
     refresh_token = request.cookies.get("refresh_token")
     use_case.execute(current_professional.id, refresh_token)
 
-    response.delete_cookie(key="refresh_token", path="/", domain="localhost")
+    response.delete_cookie(key="refresh_token", path="/", domain=settings.FRONTEND_DOMAIN)
 
     return {"msg": "Logout professional successfully"}
 
@@ -164,7 +167,7 @@ def deleteAccount(
 ):
     use_case.execute(current_professional.id)
 
-    response.delete_cookie(key="refresh_token", path="/", domain="localhost")
+    response.delete_cookie(key="refresh_token", path="/", domain=settings.FRONTEND_DOMAIN)
 
     return {"msg": "Professional successfully deleted."}
 
