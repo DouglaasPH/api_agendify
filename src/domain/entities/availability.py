@@ -59,4 +59,4 @@ class Availability:
         self.status = AvailabilityStatus.available
 
     def is_available(self):
-        return self.status == AvailabilityStatus.available.value
+        return self.status.value == AvailabilityStatus.available.value

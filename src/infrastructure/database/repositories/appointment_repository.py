@@ -87,14 +87,14 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
 
         query = (
             self.session.query(AppointmentModel)
-            .join(AppointmentModel.availability)
+            .options(joinedload(AppointmentModel.availability))
             .filter(AppointmentModel.customer_id == customer_id)
             .filter(AppointmentModel.status != AppointmentStatus.canceled.value)
             .filter(AppointmentModel.status != AppointmentStatus.deleted.value)
         )
 
         models = query.all()
-        return [self._to_entity(model) for model in models]
+        return models
 
     def save(self, appointment: Appointment) -> None:
         model = AppointmentModel(
