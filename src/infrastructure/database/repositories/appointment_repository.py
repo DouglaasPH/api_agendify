@@ -44,8 +44,8 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
 
         query = (
             self.session.query(AppointmentModel)
-            .join(AppointmentModel.availability)
-            .join(AppointmentModel.customer)
+            .options(joinedload(AppointmentModel.availability))
+            .options(joinedload(AppointmentModel.customer))
             .filter(AppointmentModel.professional_id == professional_id)
             .filter(AppointmentModel.status != AppointmentStatus.canceled.value)
             .filter(AppointmentModel.status != AppointmentStatus.deleted.value)
@@ -78,7 +78,7 @@ class AppointmentRepositorySQLAlchemy(AppointmentRepository):
             )
 
         models = query.all()
-        return [self._to_entity(model) for model in models]
+        return models
 
     def list_by_customer(
         self,
