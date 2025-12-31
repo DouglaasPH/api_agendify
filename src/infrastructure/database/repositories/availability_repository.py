@@ -1,4 +1,6 @@
-from sqlalchemy.orm import Session
+from domain.entities.appointment import AppointmentStatus
+from infrastructure.database.models.appointment import AppointmentModel
+from sqlalchemy.orm import Session, joinedload, with_loader_criteria
 
 from domain.entities.availability import Availability, AvailabilityStatus
 from domain.repositories.availability_repository import AvailabilityRepository
@@ -47,6 +49,18 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
     def list_by_professional(self, professional_id: int, filters: dict):
         query = (
             self.session.query(AvailabilityModel)
+            .options(
+                joinedload(AvailabilityModel.appointments)
+                .joinedload(AppointmentModel.customer),
+                with_loader_criteria(
+                    AppointmentModel,
+                    AppointmentModel.status.notin_([
+                        AppointmentStatus.canceled.value,
+                        AppointmentStatus.deleted.value,
+                    ]),
+                    include_aliases=True
+                    )
+                )
             .filter(AvailabilityModel.professional_id == professional_id)
             .filter(AvailabilityModel.status != AvailabilityStatus.canceled.value)
             .filter(AvailabilityModel.status != AvailabilityStatus.deleted.value)
@@ -56,15 +70,4 @@ class AvailabilityRepositorySQLAlchemy(AvailabilityRepository):
             if value is not None:
                 query = query.filter(getattr(AvailabilityModel, field) == value)
 
-        return [
-            Availability(
-                id=m.id,
-                professional_id=m.professional_id,
-                date=m.date,
-                start_time=m.start_time,
-                end_time=m.end_time,
-                slot_duration_minutes=m.slot_duration_minutes,
-                status=m.status,
-            )
-            for m in query.all()
-        ]
+        return query.all()
